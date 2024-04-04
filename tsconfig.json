@@ -18,6 +18,12 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    "strictNullChecks": false,
+    "paths": {
+      "terminatable": [
+        "./dist/terminatable"
+      ]
+    },
     "lib": [
       "ES2022",
       "dom"
