@@ -30,16 +30,6 @@
             border-spacing: 0;
             width: 100%;
 
-            &.strip {
-                tbody {
-                    tr {
-                        &:nth-child(odd) {
-                            background-color: #E4E4E4;
-                        }
-                    }
-                }
-            }
-
             // padding-right: 0.5rem;
             thead {
                 position: sticky;
