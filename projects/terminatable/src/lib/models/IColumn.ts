@@ -5,4 +5,5 @@ export interface IColumn {
     isFrozen?: boolean;
     isVisible?: boolean;
     backgroundColor?: string;
+    color?: string;
 }
