@@ -2,7 +2,7 @@ import { IConfig } from '../../projects/terminatable/src/lib/models';
 
 export const CONFIG: IConfig = {
   multiSelect: true,
-  rowSelection: false,
+  rowSelection: true,
   strip: true,
   style: {
     header: {
@@ -38,7 +38,7 @@ export const CONFIG: IConfig = {
       },
       hover: {
         color: {
-          background: '#FFF',
+          background: '#C5DBFF',
           text: '#4b5563',
         },
         font: {
@@ -46,6 +46,17 @@ export const CONFIG: IConfig = {
           weight: 'normal',
         },
       },
+      selected: {
+        color: {
+          background: '#6aa3ff',
+          text: '#4b5563',
+        },
+        font: {
+          size: 16,
+          weight: 'normal',
+        },
+        
+      }
     },
   },
 };

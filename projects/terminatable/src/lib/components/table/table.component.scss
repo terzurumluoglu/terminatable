@@ -43,7 +43,7 @@
                         padding: 1rem 1rem;
                         font-weight: 700;
                         color: #374151;
-                        background-color: #FFF;
+                        background: inherit;
 
                         &.freeze {
                             position: sticky;
@@ -70,6 +70,7 @@
 
                     td {
                         text-align: left;
+                        background: inherit;
                         // border: 1px solid #e5e7eb;
                         // border-width: 0 0 1px 0;
                         padding: 1.2rem 1rem;

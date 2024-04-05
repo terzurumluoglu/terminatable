@@ -16,11 +16,12 @@ import { SanitizerService, StyleService } from '../../services';
 import { SafeStyle } from '@angular/platform-browser';
 import { CheckboxComponent } from '../../checkbox/components/checkbox/checkbox.component';
 import { ICheckboxModel } from '../../checkbox/models/ICheckbox';
+import { HoverHighlightDirective } from '../../directives/hover-highlight/hover-highlight.directive';
 
 @Component({
   selector: 'lib-table',
   standalone: true,
-  imports: [CommonModule, CheckboxComponent],
+  imports: [CommonModule, CheckboxComponent, HoverHighlightDirective],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -30,7 +31,8 @@ export class TableComponent implements AfterViewInit {
   @ContentChild('caption') caption: TemplateRef<any>;
   @ContentChild('footer') footer: TemplateRef<any>;
 
-  _tableContainerHeight: SafeStyle = this.sanitizer.bypassSecurityTrustStyle('calc(100%)');
+  _tableContainerHeight: SafeStyle =
+    this.sanitizer.bypassSecurityTrustStyle('calc(100%)');
 
   _config: IConfig;
   @Input() set config(value: IConfig) {
@@ -49,49 +51,75 @@ export class TableComponent implements AfterViewInit {
   }
 
   @Output() onChange: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() onRowSelect: EventEmitter<any> = new EventEmitter<any>();
+
+  selectedRow: any;
 
   constructor(
     private readonly sanitizer: SanitizerService,
-    private readonly styleService: StyleService) {}
+    private readonly styleService: StyleService
+  ) {}
 
   ngAfterViewInit(): void {
-    const val: number = [this.caption, this.footer].filter(a => !!a).length;
-    this._tableContainerHeight = this.styleService.calculateTableContainerHeight(val);
+    const val: number = [this.caption, this.footer].filter((a) => !!a).length;
+    this._tableContainerHeight =
+      this.styleService.calculateTableContainerHeight(val);
   }
+
+  selectRow = (row: any) => {
+    if (!this._config.rowSelection) {
+      return;
+    }
+    this.selectedRow = row;
+    const { checked, ...data } = row;
+    this.onRowSelect.emit(data);
+  };
 
   background = (index: number) => {
-    const key: string = this._config.strip && index % 2 === 0 ? 'even' : 'odd';
-    const body: IBody = this._config.style.body;
-    return body[key as keyof typeof body].color.background;
-  }
+    return this.styleService.background(this._config, index);
+  };
 
-  prepareCheckboxDataForSend = () => {
-    console.log(this._data);
-    const dataWithoutChecked: any[] = this._data.filter(d => d.checked).map(d => {
+  filterChecked = () => {
+    return this._data.filter((d) => d.checked);
+  };
+
+  removeChecked = () => {
+    return this._data.map((d) => {
       const { checked, ...data } = d;
       return data;
-    })
-    this.onChange.emit(dataWithoutChecked);
-  }
+    });
+  };
+
+  prepareCheckboxDataForSend = () => {
+    this._data = this.filterChecked();
+    this._data = this.removeChecked();
+    this.onChange.emit(this._data);
+  };
 
   generateCheckboxData = () => {
-    this._data = this._data.map(data => {
+    this._data = this._data.map((data) => {
       const d = {
         checked: false,
         ...data,
       };
       return d;
     });
-  }
+  };
 
   onChangeAll(event: boolean) {
-    this._data.forEach(item => item.checked = event);
-    this.prepareCheckboxDataForSend()
+    if (!this._config.multiSelect) {
+      return;
+    }
+    this._data.forEach((item) => (item.checked = event));
+    this.prepareCheckboxDataForSend();
   }
 
   onChangeOne(checkBoxModel: ICheckboxModel) {
+    if (!this._config.multiSelect) {
+      return;
+    }
     if (checkBoxModel.checked) {
-      this.selectAll.selectedAll = this._data.every(d => d.checked);
+      this.selectAll.selectedAll = this._data.every((d) => d.checked);
     } else {
       this.selectAll.selectedAll = false;
     }
