@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TableComponent } from '../../projects/terminatable/src/lib/components/table/table.component';
 import { UserService } from './services/user/user.service';
@@ -6,6 +6,7 @@ import { IUser } from './models/IUser';
 import { IColumn } from '../../projects/terminatable/src/lib/models/IColumn';
 import { IConfig } from '../../projects/terminatable/src/lib/models/IConfig';
 import { CommonModule } from '@angular/common';
+import { CONFIG } from './table.config';
 
 @Component({
   selector: 'app-root',
@@ -16,12 +17,9 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent implements OnInit {
   title = 'terminatable-project';
+  @ViewChild('caption') caption: TemplateRef<any>;
 
-  config: IConfig = {
-    headerBackgroundColor: '#e4e4e4',
-    bodyBackgroundColor: '#FFF',
-    heightByPercentage: 50,
-  };
+  config: IConfig = CONFIG;
 
   columns: IColumn[] = [
     {
@@ -80,4 +78,8 @@ export class AppComponent implements OnInit {
     this.data = await this.userService.getAllUsers();
     // this.data .length = 2;
   };
+
+  onChange(event: any[]) {
+    console.log(event);
+  }
 }

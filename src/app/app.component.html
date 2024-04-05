@@ -1,33 +1,21 @@
 <router-outlet />
 
-<div style="height: 100%; width: 100%; padding-top: 20%; background-color: aquamarine;">
+<div style="height: 100%; width: 100%; padding-top: 5%; background-color: aquamarine;">
     <div style="height: 80%; width: 80%; margin-left: 10%; background-color: #fff;">
-        
-        <lib-table [columns]="columns" [data]="data">
-            <!-- <ng-template #caption>
+        <lib-table (onChange)="onChange($event)" [config]="config" [columns]="columns" [data]="data">
+            <ng-template #caption>
                 <span class="text-md font-bold">
                     User List
                 </span>
-            </ng-template> -->
-            <!-- <ng-template [ngTemplateOutlet]="outlet" [ngOutletContext]="context"></ng-template> -->
+            </ng-template>
+            <ng-template #footer>
+                <span class="text-md font-bold">
+                    Footer
+                </span>
+            </ng-template>
         </lib-table>
-
     </div>
 </div>
 
-<!-- <lib-table [config]="config" [columns]="columns" [data]="data">
-    <ng-template #caption>
-        <span class="text-md font-bold">
-            User List
-        </span>
-    </ng-template>
-    <ng-template #tbody>
-        <tr *ngFor="let d of data">
-            <td *ngFor="let col of columns">
-                toprak
-            </td>
-        </tr>
-    </ng-template> -->
-    
-    <!-- <ng-template [ngTemplateOutlet]="outlet" [ngOutletContext]="context"></ng-template> -->
-<!-- </lib-table> -->
+<ng-template #caption>
+</ng-template>
