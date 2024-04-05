@@ -2,7 +2,7 @@
 
 <div style="height: 100%; width: 100%; padding-top: 5%; background-color: aquamarine;">
     <div style="height: 80%; width: 80%; margin-left: 10%; background-color: #fff;">
-        <lib-table (onChange)="onChange($event)" [config]="config" [columns]="columns" [data]="data">
+        <lib-table (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)" [config]="config" [columns]="columns" [data]="data">
             <ng-template #caption>
                 <span class="text-md font-bold">
                     User List

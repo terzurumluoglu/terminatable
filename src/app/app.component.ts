@@ -82,4 +82,8 @@ export class AppComponent implements OnInit {
   onChange(event: any[]) {
     console.log(event);
   }
+
+  onRowSelect = (event: any) => {
+    console.log(event);
+  }
 }

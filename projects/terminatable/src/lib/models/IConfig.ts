@@ -16,6 +16,7 @@ export interface IBody {
   odd?: IColorFont;
   even?: IColorFont;
   hover?: IColorFont;
+  selected?: IColorFont;
 }
 
 export interface IStyle {
