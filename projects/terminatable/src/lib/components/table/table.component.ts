@@ -10,7 +10,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { IBody, IConfig } from '../../models/IConfig';
+import { IConfig } from '../../models/IConfig';
 import { IColumn } from '../../models/IColumn';
 import { SanitizerService, StyleService } from '../../services';
 import { SafeStyle } from '@angular/platform-browser';

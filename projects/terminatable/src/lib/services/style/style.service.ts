@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SanitizerService } from '../sanitizer/sanitizer.service';
-import { IBody, IConfig } from '../../models';
+import { IConfig } from '../../models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class StyleService {
 
   background = (config: IConfig, index: number, isSelected: boolean) => {
     const key: string = isSelected ? 'selected' : (config.strip && index % 2 === 0 ? 'even' : 'odd');
-    const body: IBody = config.style.body;
+    const body = config.style.body;
     return body[key as keyof typeof body].color.background;
   };
 }
