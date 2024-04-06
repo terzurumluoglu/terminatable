@@ -1,25 +1,25 @@
-export interface IColor {
+interface IColor {
     background?: string;
     text?: string;
 }
-export interface IFont {
+interface IFont {
     size?: number;
     weight?: string;
 }
 
-export interface IColorFont {
+interface IColorFont {
   color?: IColor;
   font?: IFont;
 }
 
-export interface IBody {
+interface IBody {
   odd?: IColorFont;
   even?: IColorFont;
   hover?: IColorFont;
   selected?: IColorFont;
 }
 
-export interface IStyle {
+interface IStyle {
   header?: IColorFont;
   body?: IBody;
 }

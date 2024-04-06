@@ -1,17 +1,18 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TableComponent } from '../../projects/terminatable/src/lib/components/table/table.component';
+// import { TableComponent } from '../../projects/terminatable/src/lib/components/table/table.component';
 import { UserService } from './services/user/user.service';
 import { IUser } from './models/IUser';
 import { IColumn } from '../../projects/terminatable/src/lib/models/IColumn';
 import { IConfig } from '../../projects/terminatable/src/lib/models/IConfig';
 import { CommonModule } from '@angular/common';
 import { CONFIG } from './table.config';
+import { TerminatableComponent } from '../../projects/terminatable/src/public-api';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TableComponent, CommonModule],
+  imports: [RouterOutlet, TerminatableComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

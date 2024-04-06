@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SanitizerService {
+  constructor(private readonly sanitizer: DomSanitizer) {}
 
-  constructor(private readonly sanitizer: DomSanitizer) { }
-
-  bypassSecurityTrustStyle = (value: string) => this.sanitizer.bypassSecurityTrustStyle(value);
+  bypassSecurityTrustStyle = (value: string) =>
+    this.sanitizer.bypassSecurityTrustStyle(value);
 }
