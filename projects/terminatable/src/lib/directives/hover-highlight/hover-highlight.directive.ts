@@ -28,21 +28,26 @@ export class HoverHighlightDirective {
   @HostListener('mouseenter') onMouseEnter() {
     const {
       config: {
-        style: { body },
+        style: {
+          body: {
+            hover: {
+              color: { background },
+            },
+          },
+        },
       },
-      selected,
     } = this.libHoverHighlight;
-    const color: string = selected
-      ? body.selected.color.background
-      : body.hover.color.background;
-    this.renderer.setStyle(this.el.nativeElement, 'background-color', color);
+
+    this.renderer.setStyle(
+      this.el.nativeElement,
+      'background-color',
+      background
+    );
   }
 
   @HostListener('mouseleave') onMouseLeave() {
     const { config, index, selected } = this.libHoverHighlight;
-    const color: string = selected
-      ? config.style.body.selected.color.background
-      : this.styleService.background(config, index);
+    const color: string = this.styleService.background(config, index, selected);
     this.renderer.setStyle(this.el.nativeElement, 'background-color', color);
   }
 }

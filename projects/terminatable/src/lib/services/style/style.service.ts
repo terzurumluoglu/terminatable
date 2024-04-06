@@ -14,8 +14,8 @@ export class StyleService {
     return this.sanitizer.bypassSecurityTrustStyle(str);
   };
 
-  background = (config: IConfig, index: number) => {
-    const key: string = config.strip && index % 2 === 0 ? 'even' : 'odd';
+  background = (config: IConfig, index: number, isSelected: boolean) => {
+    const key: string = isSelected ? 'selected' : (config.strip && index % 2 === 0 ? 'even' : 'odd');
     const body: IBody = config.style.body;
     return body[key as keyof typeof body].color.background;
   };

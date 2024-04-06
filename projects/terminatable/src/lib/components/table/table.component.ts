@@ -75,25 +75,25 @@ export class TableComponent implements AfterViewInit {
     this.onRowSelect.emit(data);
   };
 
-  background = (index: number) => {
-    return this.styleService.background(this._config, index);
+  background = (index: number, rowId: any) => {
+    const isSelected: boolean = rowId === this.selectedRow?.id;
+    return this.styleService.background(this._config, index, isSelected);
   };
 
-  filterChecked = () => {
-    return this._data.filter((d) => d.checked);
+  filterChecked = (data: any[]) => {
+    return data.filter((d) => d.checked);
   };
 
-  removeChecked = () => {
-    return this._data.map((d) => {
+  removeChecked = (data: any[]) => {
+    return data.map((d) => {
       const { checked, ...data } = d;
       return data;
     });
   };
 
   prepareCheckboxDataForSend = () => {
-    this._data = this.filterChecked();
-    this._data = this.removeChecked();
-    this.onChange.emit(this._data);
+    const checkBoxData: any[] = this.removeChecked(this.filterChecked(structuredClone(this._data)));
+    this.onChange.emit(checkBoxData);
   };
 
   generateCheckboxData = () => {
