@@ -8,16 +8,22 @@ import { IConfig } from '../../projects/terminatable/src/lib/models/IConfig';
 import { CommonModule } from '@angular/common';
 import { CONFIG } from './table.config';
 import { TerminatableComponent } from '../../projects/terminatable/src/public-api';
+import { CODE } from './code';
+import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
+import { Highlight, HighlightAuto } from 'ngx-highlightjs';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TerminatableComponent, CommonModule],
+  imports: [RouterOutlet, TerminatableComponent, CommonModule, Highlight, HighlightAuto, HighlightLineNumbers],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   title = 'terminatable-project';
+
+  code: string = CODE;
+
   @ViewChild('caption') caption: TemplateRef<any>;
 
   config: IConfig = CONFIG;
@@ -87,4 +93,6 @@ export class AppComponent implements OnInit {
   onRowSelect = (event: any) => {
     console.log(event);
   }
+
+
 }
