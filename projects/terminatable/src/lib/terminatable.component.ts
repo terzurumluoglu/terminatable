@@ -16,6 +16,7 @@ import { SafeStyle } from '@angular/platform-browser';
 import { IColumn, IConfig } from './models';
 import { TerminatableService } from './terminatable.service';
 import { ICheckboxModel } from './checkbox/models';
+import { CONFIG } from './constants/config';
 
 @Component({
   selector: 'terminatable',
@@ -33,8 +34,9 @@ export class TerminatableComponent implements AfterViewInit {
   _tableContainerHeight: SafeStyle =
     this.service.bypassSecurityTrustStyle('calc(100%)');
 
-  _config: IConfig;
+  _config: IConfig = CONFIG;
   @Input() set config(value: IConfig) {
+    value = { ...CONFIG, ...value };
     this._config = value;
   }
 

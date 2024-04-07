@@ -1,11 +1,12 @@
-import { IConfig } from '../../projects/terminatable/src/lib/models';
+import { IConfig } from "../models";
 
 export const CONFIG: IConfig = {
-  multiSelect: true,
-  rowSelection: true,
-  strip: true,
+  multiSelect: false,
+  rowSelection: false,
+  strip: false,
   style: {
     header: {
+      lineHeight: 8,
       color: {
         background: '#FFF',
         text: '#4b5563',

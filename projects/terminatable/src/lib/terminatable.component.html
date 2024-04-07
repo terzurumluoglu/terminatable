@@ -5,7 +5,7 @@
     <div class="table-container" [style.height]="_tableContainerHeight">
         <table>
             <thead>
-                <tr [style.backgroundColor]="_config.style.header.color.background">
+                <tr [style.backgroundColor]="_config.style.header.color.background" [style.lineHeight.px]="_config.style.header.lineHeight">
                     <th style="width: 125px;" *ngIf="_config.multiSelect" class="freeze">
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)"
+                <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)" [style.lineHeight.px]="_config.style.body.lineHeight"
                     [style.backgroundColor]="background(i, row.id)"
                     [libHoverHighlight]="{config: _config, index: i, selected: row.id === selectedRow?.id}">
                     <td *ngIf="_config.multiSelect" class="freeze">
