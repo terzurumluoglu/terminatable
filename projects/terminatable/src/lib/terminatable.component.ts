@@ -68,7 +68,7 @@ export class TerminatableComponent implements AfterViewInit {
     if (!this._config.rowSelection) {
       return;
     }
-    this.selectedRow = row;
+    this.selectedRow = this.isSelectedRow(row) ? undefined : row;
     const { checked, ...data } = row;
     this.onRowSelect.emit(data);
   };
