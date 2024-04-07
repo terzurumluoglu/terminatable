@@ -1,6 +1,7 @@
 import { IConfig } from "../models";
 
 export const CONFIG: IConfig = {
+  uniqueField: 'id',
   multiSelect: false,
   rowSelection: false,
   strip: false,

@@ -1,6 +1,7 @@
 import { IConfig } from '../../projects/terminatable/src/lib/models';
 
 export const CONFIG: IConfig = {
+  uniqueField: 'id',
   multiSelect: true,
   rowSelection: true,
   strip: true,

@@ -23,8 +23,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)" [style.lineHeight.px]="_config.style.body.lineHeight"
-                    [style.backgroundColor]="background(i, row.id)"
-                    [libHoverHighlight]="{config: _config, index: i, selected: row.id === selectedRow?.id}">
+                    [style.backgroundColor]="background(i, row)"
+                    [libHoverHighlight]="hoverHighlightInput(row, i)">
                     <td *ngIf="_config.multiSelect" class="freeze">
                         <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
                     </td>

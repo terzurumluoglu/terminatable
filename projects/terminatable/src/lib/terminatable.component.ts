@@ -73,8 +73,8 @@ export class TerminatableComponent implements AfterViewInit {
     this.onRowSelect.emit(data);
   };
 
-  background = (index: number, rowId: any) => {
-    const isSelected: boolean = rowId === this.selectedRow?.id;
+  background = (index: number, row: any) => {
+    const isSelected: boolean = this.isSelectedRow(row)
     return this.service.background(this._config, index, isSelected);
   };
 
@@ -124,5 +124,14 @@ export class TerminatableComponent implements AfterViewInit {
       this.selectAll.selectedAll = false;
     }
     this.prepareCheckboxDataForSend();
+  }
+
+  hoverHighlightInput = (row: any, index: number) => {
+    const selected: boolean = this.isSelectedRow(row);
+    return {config: this._config, index, selected };
+  }
+
+  isSelectedRow = (row: any) => {
+    return !!this.selectedRow ? row[this._config.uniqueField] === this.selectedRow[this._config.uniqueField] : false;
   }
 }
