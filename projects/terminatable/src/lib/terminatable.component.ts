@@ -16,6 +16,7 @@ import { SafeStyle } from '@angular/platform-browser';
 import { IColumn, IConfig } from './models';
 import { TerminatableService } from './terminatable.service';
 import { ICheckboxModel } from './checkbox/models';
+import { CONFIG } from './constants/config';
 
 @Component({
   selector: 'terminatable',
@@ -33,8 +34,9 @@ export class TerminatableComponent implements AfterViewInit {
   _tableContainerHeight: SafeStyle =
     this.service.bypassSecurityTrustStyle('calc(100%)');
 
-  _config: IConfig;
+  _config: IConfig = CONFIG;
   @Input() set config(value: IConfig) {
+    value = { ...CONFIG, ...value };
     this._config = value;
   }
 
@@ -66,13 +68,13 @@ export class TerminatableComponent implements AfterViewInit {
     if (!this._config.rowSelection) {
       return;
     }
-    this.selectedRow = row;
+    this.selectedRow = this.isSelectedRow(row) ? undefined : row;
     const { checked, ...data } = row;
     this.onRowSelect.emit(data);
   };
 
-  background = (index: number, rowId: any) => {
-    const isSelected: boolean = rowId === this.selectedRow?.id;
+  background = (index: number, row: any) => {
+    const isSelected: boolean = this.isSelectedRow(row)
     return this.service.background(this._config, index, isSelected);
   };
 
@@ -122,5 +124,14 @@ export class TerminatableComponent implements AfterViewInit {
       this.selectAll.selectedAll = false;
     }
     this.prepareCheckboxDataForSend();
+  }
+
+  hoverHighlightInput = (row: any, index: number) => {
+    const selected: boolean = this.isSelectedRow(row);
+    return {config: this._config, index, selected };
+  }
+
+  isSelectedRow = (row: any) => {
+    return !!this.selectedRow ? row[this._config.uniqueField] === this.selectedRow[this._config.uniqueField] : false;
   }
 }

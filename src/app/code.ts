@@ -1,5 +1,4 @@
-import { IConfig } from '../../projects/terminatable/src/lib/models';
-
+export const CODE: string = `
 export const CONFIG: IConfig = {
   uniqueField: 'id',
   multiSelect: true,
@@ -62,3 +61,4 @@ export const CONFIG: IConfig = {
     },
   },
 };
+`;

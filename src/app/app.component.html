@@ -1,21 +1,37 @@
-<router-outlet />
+<!-- <router-outlet /> -->
 
-<div style="height: 100%; width: 100%; padding-top: 5%; background-color: aquamarine;">
-    <div style="height: 80%; width: 80%; margin-left: 10%; background-color: #fff;">
-        <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)" [config]="config" [columns]="columns" [data]="data">
-            <ng-template #caption>
-                <span class="text-md font-bold">
-                    User List
-                </span>
-            </ng-template>
-            <ng-template #footer>
-                <span class="text-md font-bold">
-                    Footer
-                </span>
-            </ng-template>
-        </terminatable>
+<div class="container">
+
+    <div class="header">
+        <h1>
+            TERMINATABLE
+        </h1>
+    </div>
+    <div class="body">
+        <p>
+            You can customize almost everything!
+        </p>
+    </div>
+
+    <div style="height: 100%; width: 100%; padding-top: 5%; display: flex; gap: 1rem">
+        <div style="width: 30%;">
+            <pre><code [highlight]="code" language="typescript" lineNumbers></code></pre>
+        </div>
+        <div style="width: 70%; border: 2px solid tomato;">
+            <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)" [config]="config"
+                [columns]="columns" [data]="data">
+                <ng-template #caption>
+                    <span class="text-md font-bold">
+                        User List
+                    </span>
+                </ng-template>
+                <ng-template #footer>
+                    <span class="text-md font-bold">
+                        Footer
+                    </span>
+                </ng-template>
+            </terminatable>
+
+        </div>
     </div>
 </div>
-
-<ng-template #caption>
-</ng-template>
