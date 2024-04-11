@@ -172,4 +172,71 @@ export class TerminatableComponent implements AfterViewInit {
   };
 
   //#endregion
+
+
+  //#region COLUMN - DRAG AND DROP
+
+  columnSourceIndex: number = -1;
+
+  dragStart(index: number) {
+    this.columnSourceIndex = index;
+  }
+
+  dragOver(event: DragEvent) {
+    event.preventDefault?.();
+  }
+
+  drop(index: number) {
+
+    if (!this.dropSuccessControl(index)) {
+      this.columnSourceIndex = -1;
+      return;
+    }
+
+    const column: any = this._columns[this.columnSourceIndex];
+    this._columns.splice(this.columnSourceIndex, 1);
+    this._columns.splice(index, 0, column);
+    this.columnSourceIndex = -1;
+  }
+
+  dropSuccessControl = (index: number): boolean => {
+    if ([-1, index].includes(this.columnSourceIndex)) {
+      return false;
+    }
+    if ([index, this.columnSourceIndex].some(i => this._columns[i].isFrozen)) {
+      console.log('FROZEN COLUMN CANNOT MOVE');
+      return false;
+    }
+    return true;
+  }
+
+  //#endregion
+
+  //#region ROW - DRAG AND DROP
+
+  rowSourceIndex: number = -1;
+
+  rowDragStart(index: number) {
+    this.rowSourceIndex = index;
+    console.log(index);
+  }
+
+  rowDragOver(event: DragEvent) {
+    // console.log(index);
+    event.preventDefault?.();
+  }
+
+  rowDrop(index: number) {
+    if (this.rowSourceIndex === -1 || index === this.rowSourceIndex) {
+      this.rowSourceIndex = -1;
+      return;
+    }
+
+    const datum: any = this._data[this.rowSourceIndex];
+    this._data.splice(this.rowSourceIndex, 1);
+    this._data.splice(index, 0, datum);
+    this.rowSourceIndex = -1;
+  }
+
+  //#endregion
 }
