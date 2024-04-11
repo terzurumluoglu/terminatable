@@ -6,7 +6,7 @@
         <table>
             <thead>
                 <tr [ngStyle]="trStyle">
-                    <th style="width: 125px;" *ngIf="_config.multiSelect" class="freeze">
+                    <th *ngIf="_config.multiSelect" class="freeze">
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
                     </th>

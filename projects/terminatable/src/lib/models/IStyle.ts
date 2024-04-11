@@ -37,7 +37,7 @@ export interface IRowStyle {
 }
 
 export interface IColumnStyle {
-  left?: number;
+  left?: number | string;
   'font-size'?: number;
   'font-weight'?: string;
 }

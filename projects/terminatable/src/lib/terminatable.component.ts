@@ -44,12 +44,12 @@ export class TerminatableComponent implements AfterViewInit {
       'line-height': value.style.header.lineHeight,
     };
     this.thStyle = {
-      left: value.multiSelect ? 3.25 : 0,
+      left: value.multiSelect ? '3.25rem' : 0,
       'font-size': value.style.header.font.size,
       'font-weight': value.style.header.font.weight,
     };
     this.tdStyle = {
-      left: value.multiSelect ? 3.25 : 0,
+      left: value.multiSelect ? '3.25rem' : 0,
       'font-size': value.style.body.even.font.size,
       'font-weight': value.style.body.even.font.weight,
     };
