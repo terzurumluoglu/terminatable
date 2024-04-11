@@ -17,6 +17,7 @@ import { IColumn, IConfig } from './models';
 import { TerminatableService } from './terminatable.service';
 import { ICheckboxModel } from './checkbox/models';
 import { CONFIG } from './constants/config';
+import { IColumnStyle, IRowStyle } from './models/IStyle';
 
 @Component({
   selector: 'terminatable',
@@ -38,6 +39,20 @@ export class TerminatableComponent implements AfterViewInit {
   @Input() set config(value: IConfig) {
     value = { ...CONFIG, ...value };
     this._config = value;
+    this.trStyle = {
+      'background-color': value.style.header.color.background,
+      'line-height': value.style.header.lineHeight,
+    };
+    this.thStyle = {
+      left: value.multiSelect ? 3.25 : 0,
+      'font-size': value.style.header.font.size,
+      'font-weight': value.style.header.font.weight,
+    };
+    this.tdStyle = {
+      left: value.multiSelect ? 3.25 : 0,
+      'font-size': value.style.body.even.font.size,
+      'font-weight': value.style.body.even.font.weight,
+    };
   }
 
   _columns: IColumn[] = [];
@@ -56,6 +71,10 @@ export class TerminatableComponent implements AfterViewInit {
 
   selectedRow: any;
 
+  trStyle: IRowStyle = {};
+  thStyle: IColumnStyle = {};
+  tdStyle: IColumnStyle = {};
+
   constructor(private readonly service: TerminatableService) {}
 
   ngAfterViewInit(): void {
@@ -71,11 +90,6 @@ export class TerminatableComponent implements AfterViewInit {
     this.selectedRow = this.isSelectedRow(row) ? undefined : row;
     const { checked, ...data } = row;
     this.onRowSelect.emit(data);
-  };
-
-  background = (index: number, row: any) => {
-    const isSelected: boolean = this.isSelectedRow(row)
-    return this.service.background(this._config, index, isSelected);
   };
 
   filterChecked = (data: any[]) => {
@@ -126,12 +140,35 @@ export class TerminatableComponent implements AfterViewInit {
     this.prepareCheckboxDataForSend();
   }
 
-  hoverHighlightInput = (row: any, index: number) => {
-    const selected: boolean = this.isSelectedRow(row);
-    return {config: this._config, index, selected };
+  isSelectedRow = (row: any) => {
+    return !!this.selectedRow
+      ? row[this._config.uniqueField] ===
+          this.selectedRow[this._config.uniqueField]
+      : false;
+  };
+
+  //#region STYLE
+
+  textColor(column: IColumn, index: number = -1): string {
+    if (!!column?.color) {
+      return column.color;
+    }
+    return this._config.style.body.even.color.text;
   }
 
-  isSelectedRow = (row: any) => {
-    return !!this.selectedRow ? row[this._config.uniqueField] === this.selectedRow[this._config.uniqueField] : false;
-  }
+  hoverHighlightInput = (row: any, index: number) => {
+    const selected: boolean = this.isSelectedRow(row);
+    return { config: this._config, index, selected };
+  };
+
+  backgroundColor = (obj: { index?: number; row?: any; column?: IColumn }) => {
+    const { index, row, column } = obj;
+    if (!!column) {
+      return column.backgroundColor;
+    }
+    const isSelected: boolean = this.isSelectedRow(row);
+    return this.service.background(this._config, index, isSelected);
+  };
+
+  //#endregion
 }

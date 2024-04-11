@@ -5,16 +5,17 @@
     <div class="table-container" [style.height]="_tableContainerHeight">
         <table>
             <thead>
-                <tr [style.backgroundColor]="_config.style.header.color.background" [style.lineHeight.px]="_config.style.header.lineHeight">
+                <tr [ngStyle]="trStyle">
                     <th style="width: 125px;" *ngIf="_config.multiSelect" class="freeze">
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
                     </th>
-                    <th *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
-                        [style.left.rem]="_config.multiSelect ? 3.25 : 0" [style.minWidth.px]="column.width"
-                        [style.fontSize]="_config.style.header.font.size"
-                        [style.color]="_config.style.header.color.text"
-                        [style.fontWeight]="_config.style.header.font.weight">
+                    <th *ngFor="let column of _columns"
+                        [class]="column.isFrozen ? 'freeze' : ''"
+                        [ngStyle]="thStyle"
+                        [style.minWidth.px]="column.width"
+                        [style.color]="textColor(column)"
+                        [style.backgroundColor]="backgroundColor({column})">
                         <span>
                             {{column.title}}
                         </span>
@@ -23,16 +24,17 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)" [style.lineHeight.px]="_config.style.body.lineHeight"
-                    [style.backgroundColor]="background(i, row)"
+                    [style.backgroundColor]="backgroundColor({index: i, row})"
                     [libHoverHighlight]="hoverHighlightInput(row, i)">
                     <td *ngIf="_config.multiSelect" class="freeze">
                         <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
                     </td>
-                    <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
-                        [style.left.rem]="_config.multiSelect ? 3.25 : 0" [style.minWidth.px]="column.width"
-                        [style.fontSize]="_config.style.body.even.font.size"
-                        [style.color]="_config.style.body.even.color.text"
-                        [style.fontWeight]="_config.style.body.even.font.weight">
+                    <td *ngFor="let column of _columns"
+                        [class]="column.isFrozen ? 'freeze' : ''"
+                        [ngStyle]="tdStyle"
+                        [style.minWidth.px]="column.width"
+                        [style.color]="textColor(column, i)"
+                        [style.backgroundColor]="backgroundColor({index: i, row, column})">
                         <span>
                             {{row[column.field]}}
                         </span>
