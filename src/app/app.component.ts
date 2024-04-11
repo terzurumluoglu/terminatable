@@ -94,5 +94,12 @@ export class AppComponent implements OnInit {
     console.log(event);
   }
 
+  onColumnDrop = (event: any) => {
+    console.log(event);
+  }
+  
+  onRowDrop = (event: any) => {
+    console.log(event);
+  }
 
 }

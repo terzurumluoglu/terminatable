@@ -186,17 +186,53 @@ export class TerminatableComponent implements AfterViewInit {
 
   //#region COLUMN - DRAG AND DROP
 
+  setMoveClass = (element: ElementRef) => {
+    element.nativeElement.classList.add('move');
+  }
+
+  removeMoveClass = (element: ElementRef) => {
+    element.nativeElement.classList.remove('move');
+  }
+
+  getActiveDragbox = (
+    index: number,
+    direction: 'row' | 'column'
+  ): ElementRef => {
+    const drogboxes: QueryList<ElementRef> =
+      direction === 'row' ? this.rowDragboxes : this.columnDragboxes;
+    return drogboxes.find((_: ElementRef, i) => i === index);
+  };
+
   columnSourceIndex: number = -1;
 
   columnDragStart(index: number) {
     this.columnSourceIndex = index;
+    const dragbox: ElementRef = this.getActiveDragbox(index, 'column');
+    this.setMoveClass(dragbox);
   }
 
-  columnDragOver(event: DragEvent) {
+  columnDragOver(event: DragEvent, index: number) {
+    if (this.columnSourceIndex === -1) {
+      return;
+    }
+    [...Array(this.columnDragboxes.length).keys()].forEach(i => {
+      const dragbox: ElementRef = this.getActiveDragbox(i, 'column');
+      if ([index, this.columnSourceIndex].includes(i)) {
+        this.setMoveClass(dragbox)
+      } else {
+        this.removeMoveClass(dragbox);
+      }
+    });
     event.preventDefault?.();
   }
 
   columnDrop(index: number) {
+    [
+      this.getActiveDragbox(index, 'column'),
+      this.getActiveDragbox(this.columnSourceIndex, 'column')
+    ].forEach(dragbox => {
+      this.removeMoveClass(dragbox);
+    });
     if (!this.dropSuccessControl(index)) {
       this.columnSourceIndex = -1;
       return;
@@ -235,13 +271,32 @@ export class TerminatableComponent implements AfterViewInit {
 
   rowDragStart(index: number) {
     this.rowSourceIndex = index;
+    const dragbox: ElementRef = this.getActiveDragbox(index, 'row');
+    this.setMoveClass(dragbox);
   }
 
-  rowDragOver(event: DragEvent) {
+  rowDragOver(event: DragEvent, index: number) {
+    if (this.rowSourceIndex === -1) {
+      return;
+    }
+    [...Array(this.rowDragboxes.length).keys()].forEach(i => {
+      const dragbox: ElementRef = this.getActiveDragbox(i, 'row');
+      if ([index, this.rowSourceIndex].includes(i)) {
+        this.setMoveClass(dragbox)
+      } else {
+        this.removeMoveClass(dragbox);
+      }
+    });
     event.preventDefault?.();
   }
 
   rowDrop(index: number) {
+    [
+      this.getActiveDragbox(index, 'row'),
+      this.getActiveDragbox(this.rowSourceIndex, 'row')
+    ].forEach(dragbox => {
+      this.removeMoveClass(dragbox);
+    });
     if (this.rowSourceIndex === -1 || index === this.rowSourceIndex) {
       this.rowSourceIndex = -1;
       return;
