@@ -10,8 +10,8 @@
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
                     </th>
-                    <th *ngFor="let column of _columns; let i = index" #dragbox draggable="true" (dragstart)="dragStart(i)" (dragover)="dragOver($event)"
-                    (drop)="drop(i)" scope="col" [class]="column.isFrozen ? 'freeze' : ''" [ngStyle]="thStyle"
+                    <th *ngFor="let column of _columns; let i = index" #columnDragbox [draggable]="column.isFrozen ? false : _config.orderable.column" (dragstart)="columnDragStart(i)" (dragover)="columnDragOver($event)"
+                    (drop)="columnDrop(i)" scope="col" [class]="column.isFrozen ? 'freeze' : ''" [ngStyle]="thStyle"
                         [style.minWidth.px]="column.width" [style.color]="textColor(column)"
                         [style.backgroundColor]="backgroundColor({column})">
                         <span>
@@ -30,7 +30,7 @@
                     <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)"
                         [style.lineHeight.px]="_config.style.body.lineHeight"
                         [style.backgroundColor]="backgroundColor({index: i, row})"
-                        [libHoverHighlight]="hoverHighlightInput(row, i)" draggable="true" (dragstart)="rowDragStart(i)"
+                        [libHoverHighlight]="hoverHighlightInput(row, i)" #rowDragbox [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
                         (dragover)="rowDragOver($event)" (drop)="rowDrop(i)">
                         <td *ngIf="_config.multiSelect" class="freeze">
                             <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>

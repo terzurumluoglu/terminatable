@@ -4,6 +4,10 @@ export const CONFIG: IConfig = {
   uniqueField: 'id',
   multiSelect: false,
   rowSelection: false,
+  orderable: {
+    column: false,
+    row: false,
+  },
   strip: false,
   style: {
     header: {

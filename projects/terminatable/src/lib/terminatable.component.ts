@@ -3,11 +3,14 @@ import {
   AfterViewInit,
   Component,
   ContentChild,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
+  QueryList,
   TemplateRef,
   ViewChild,
+  ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import { CheckboxComponent } from './checkbox/components';
@@ -18,6 +21,7 @@ import { TerminatableService } from './terminatable.service';
 import { ICheckboxModel } from './checkbox/models';
 import { CONFIG } from './constants/config';
 import { IColumnStyle, IRowStyle } from './models/IStyle';
+import { IDragAngDrop } from './models/IDragDrop';
 
 @Component({
   selector: 'terminatable',
@@ -28,6 +32,8 @@ import { IColumnStyle, IRowStyle } from './models/IStyle';
   encapsulation: ViewEncapsulation.None,
 })
 export class TerminatableComponent implements AfterViewInit {
+  @ViewChildren('columnDragbox') columnDragboxes: QueryList<ElementRef>;
+  @ViewChildren('rowDragbox') rowDragboxes: QueryList<ElementRef>;
   @ViewChild('selectAll') selectAll: CheckboxComponent;
   @ContentChild('caption') caption: TemplateRef<any>;
   @ContentChild('footer') footer: TemplateRef<any>;
@@ -69,6 +75,11 @@ export class TerminatableComponent implements AfterViewInit {
 
   @Output() onChange: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() onRowSelect: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output() onColumnDrop: EventEmitter<IDragAngDrop> =
+    new EventEmitter<IDragAngDrop>();
+  @Output() onRowDrop: EventEmitter<IDragAngDrop> =
+    new EventEmitter<IDragAngDrop>();
 
   selectedRow: any;
 
@@ -173,42 +184,48 @@ export class TerminatableComponent implements AfterViewInit {
 
   //#endregion
 
-
   //#region COLUMN - DRAG AND DROP
 
   columnSourceIndex: number = -1;
 
-  dragStart(index: number) {
+  columnDragStart(index: number) {
     this.columnSourceIndex = index;
   }
 
-  dragOver(event: DragEvent) {
+  columnDragOver(event: DragEvent) {
     event.preventDefault?.();
   }
 
-  drop(index: number) {
-
+  columnDrop(index: number) {
     if (!this.dropSuccessControl(index)) {
       this.columnSourceIndex = -1;
       return;
     }
 
+    const tempColumns: any[] = structuredClone(this._columns);
     const column: any = this._columns[this.columnSourceIndex];
     this._columns.splice(this.columnSourceIndex, 1);
     this._columns.splice(index, 0, column);
     this.columnSourceIndex = -1;
+    const dragDropResult: IDragAngDrop = {
+      oldValue: tempColumns.map((a) => a.field),
+      newValue: this._columns.map((a) => a.field),
+    };
+    this.onColumnDrop.emit(dragDropResult);
   }
 
   dropSuccessControl = (index: number): boolean => {
     if ([-1, index].includes(this.columnSourceIndex)) {
       return false;
     }
-    if ([index, this.columnSourceIndex].some(i => this._columns[i].isFrozen)) {
+    if (
+      [index, this.columnSourceIndex].some((i) => this._columns[i].isFrozen)
+    ) {
       console.log('FROZEN COLUMN CANNOT MOVE');
       return false;
     }
     return true;
-  }
+  };
 
   //#endregion
 
@@ -218,11 +235,9 @@ export class TerminatableComponent implements AfterViewInit {
 
   rowDragStart(index: number) {
     this.rowSourceIndex = index;
-    console.log(index);
   }
 
   rowDragOver(event: DragEvent) {
-    // console.log(index);
     event.preventDefault?.();
   }
 
@@ -232,10 +247,16 @@ export class TerminatableComponent implements AfterViewInit {
       return;
     }
 
+    const tempData: any[] = structuredClone(this._data);
     const datum: any = this._data[this.rowSourceIndex];
     this._data.splice(this.rowSourceIndex, 1);
     this._data.splice(index, 0, datum);
     this.rowSourceIndex = -1;
+    const dragDropResult: IDragAngDrop = {
+      oldValue: tempData,
+      newValue: this._data,
+    };
+    this.onColumnDrop.emit(dragDropResult);
   }
 
   //#endregion
