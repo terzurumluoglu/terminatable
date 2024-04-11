@@ -23,23 +23,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)" [style.lineHeight.px]="_config.style.body.lineHeight"
-                    [style.backgroundColor]="backgroundColor({index: i, row})"
-                    [libHoverHighlight]="hoverHighlightInput(row, i)">
-                    <td *ngIf="_config.multiSelect" class="freeze">
-                        <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
-                    </td>
-                    <td *ngFor="let column of _columns"
-                        [class]="column.isFrozen ? 'freeze' : ''"
-                        [ngStyle]="tdStyle"
-                        [style.minWidth.px]="column.width"
-                        [style.color]="textColor(column, i)"
-                        [style.backgroundColor]="backgroundColor({index: i, row, column})">
-                        <span>
-                            {{row[column.field]}}
-                        </span>
-                    </td>
-                </tr>
+                <div *ngIf="tbody;then tbodyContent else noTbodyContent"></div>
+                <ng-template #tbodyContent>
+                    <ng-container [ngTemplateOutlet]="tbody"></ng-container>
+                </ng-template>
+
+                <ng-template #noTbodyContent>
+                    <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)"
+                        [style.lineHeight.px]="_config.style.body.lineHeight"
+                        [style.backgroundColor]="backgroundColor({index: i, row})"
+                        [libHoverHighlight]="hoverHighlightInput(row, i)">
+                        <td *ngIf="_config.multiSelect" class="freeze">
+                            <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
+                        </td>
+                        <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
+                            [ngStyle]="tdStyle" [style.minWidth.px]="column.width" [style.color]="textColor(column, i)"
+                            [style.backgroundColor]="backgroundColor({index: i, row, column})">
+                            <span>
+                                {{row[column.field]}}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
             </tbody>
         </table>
     </div>

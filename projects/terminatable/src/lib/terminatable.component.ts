@@ -31,6 +31,7 @@ export class TerminatableComponent implements AfterViewInit {
   @ViewChild('selectAll') selectAll: CheckboxComponent;
   @ContentChild('caption') caption: TemplateRef<any>;
   @ContentChild('footer') footer: TemplateRef<any>;
+  @ContentChild('tbody') tbody: TemplateRef<any>;
 
   _tableContainerHeight: SafeStyle =
     this.service.bypassSecurityTrustStyle('calc(100%)');
