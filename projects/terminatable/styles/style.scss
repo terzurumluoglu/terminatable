@@ -38,6 +38,10 @@ html, body {
             border-collapse: separate;
             border-spacing: 0;
             width: 100%;
+            .move {
+                cursor: move !important;
+                opacity: 0.4;
+            }
 
             // padding-right: 0.5rem;
             thead {

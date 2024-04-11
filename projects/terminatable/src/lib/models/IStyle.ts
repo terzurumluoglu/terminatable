@@ -1,11 +1,12 @@
+export type FontWeight = 'lighter' | 'normal' | 'bold';
 export interface IColor {
-    background?: string;
-    text?: string;
+  background?: string;
+  text?: string;
 }
 
 export interface IFont {
-    size?: number;
-    weight?: string;
+  size?: number;
+  weight?: FontWeight;
 }
 
 export interface IColorFont {
@@ -28,4 +29,15 @@ export interface IBody {
 export interface IStyle {
   header?: IHeader;
   body?: IBody;
+}
+
+export interface IRowStyle {
+  'background-color'?: string;
+  'line-height'?: number;
+}
+
+export interface IColumnStyle {
+  left?: number | string;
+  'font-size'?: number;
+  'font-weight'?: string;
 }

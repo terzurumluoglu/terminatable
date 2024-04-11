@@ -5,16 +5,15 @@
     <div class="table-container" [style.height]="_tableContainerHeight">
         <table>
             <thead>
-                <tr [style.backgroundColor]="_config.style.header.color.background" [style.lineHeight.px]="_config.style.header.lineHeight">
-                    <th style="width: 125px;" *ngIf="_config.multiSelect" class="freeze">
+                <tr [ngStyle]="trStyle">
+                    <th *ngIf="_config.multiSelect" class="freeze">
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
                     </th>
-                    <th *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
-                        [style.left.rem]="_config.multiSelect ? 3.25 : 0" [style.minWidth.px]="column.width"
-                        [style.fontSize]="_config.style.header.font.size"
-                        [style.color]="_config.style.header.color.text"
-                        [style.fontWeight]="_config.style.header.font.weight">
+                    <th *ngFor="let column of _columns; let i = index" #columnDragbox [draggable]="column.isFrozen ? false : _config.orderable.column" (dragstart)="columnDragStart(i)" (dragover)="columnDragOver($event, i)"
+                    (drop)="columnDrop(i)" scope="col" [class]="column.isFrozen ? 'freeze' : ''" [ngStyle]="thStyle"
+                        [style.minWidth.px]="column.width" [style.color]="textColor(column)"
+                        [style.backgroundColor]="backgroundColor({column})">
                         <span>
                             {{column.title}}
                         </span>
@@ -22,22 +21,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)" [style.lineHeight.px]="_config.style.body.lineHeight"
-                    [style.backgroundColor]="background(i, row)"
-                    [libHoverHighlight]="hoverHighlightInput(row, i)">
-                    <td *ngIf="_config.multiSelect" class="freeze">
-                        <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
-                    </td>
-                    <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
-                        [style.left.rem]="_config.multiSelect ? 3.25 : 0" [style.minWidth.px]="column.width"
-                        [style.fontSize]="_config.style.body.even.font.size"
-                        [style.color]="_config.style.body.even.color.text"
-                        [style.fontWeight]="_config.style.body.even.font.weight">
-                        <span>
-                            {{row[column.field]}}
-                        </span>
-                    </td>
-                </tr>
+                <div *ngIf="tbody;then tbodyContent else noTbodyContent"></div>
+                <ng-template #tbodyContent>
+                    <ng-container [ngTemplateOutlet]="tbody"></ng-container>
+                </ng-template>
+
+                <ng-template #noTbodyContent>
+                    <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)"
+                        [style.lineHeight.px]="_config.style.body.lineHeight"
+                        [style.backgroundColor]="backgroundColor({index: i, row})"
+                        [libHoverHighlight]="hoverHighlightInput(row, i)" #rowDragbox [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
+                        (dragover)="rowDragOver($event, i)" (drop)="rowDrop(i)">
+                        <td *ngIf="_config.multiSelect" class="freeze">
+                            <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
+                        </td>
+                        <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
+                            [ngStyle]="tdStyle" [style.minWidth.px]="column.width" [style.color]="textColor(column, i)"
+                            [style.backgroundColor]="backgroundColor({index: i, row, column})">
+                            <span>
+                                {{row[column.field]}}
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
             </tbody>
         </table>
     </div>
