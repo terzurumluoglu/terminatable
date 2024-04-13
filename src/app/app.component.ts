@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { TerminatableComponent } from '../../projects/terminatable/src/public-api';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
-import { BasicComponent } from './basic/components';
+import { BasicComponent } from './example/basic/components';
 import { TabsPipe } from './pipes';
-import * as BASIC from './basic/codes';
-import * as FROZEN from './frozen/codes';
-import { FrozenComponent } from './frozen/components';
+import * as BASIC from './example/basic/codes';
+import * as FROZEN from './example/frozen/codes';
+import { FrozenComponent } from './example/frozen/components';
 
 type Tab = 'columns' | 'html' | 'preview' | 'config' | 'data';
 
