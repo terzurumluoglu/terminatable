@@ -3,35 +3,145 @@
 <div class="container">
 
     <div class="header">
-        <h1>
+        <h1 class="title">
             TERMINATABLE
         </h1>
-    </div>
-    <div class="body">
-        <p>
+
+        <p class="sub-title">
             You can customize almost everything!
         </p>
     </div>
+    <div class="content">
 
-    <div style="height: 100%; width: 100%; padding-top: 5%; display: flex; gap: 1rem">
-        <div style="width: 30%;">
+        <div id="basic">
+            <p class="title">Basic</p>
+            <div id="tabs">
+                <div id="tab">
+                    <ul>
+                        <li
+                            *ngFor="let tab of tabs | tabs:'basic'"
+                            [class]="basicTab === tab.id ? 'selected': ''"
+                            (click)="basicTab = tab.id">
+                            <span>{{tab.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="content">
+                    <div *ngIf="basicTab === 'preview'">
+                        <app-basic></app-basic>
+                    </div>
+                    <div *ngIf="basicTab === 'columns'">
+                        <pre><code [highlight]="basic.columns" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="basicTab === 'html'">
+                        <pre><code [highlight]="basic.html" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="basicTab === 'data'">
+                        <pre><code [highlight]="basic.data" language="typescript" lineNumbers></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="frozen">
+            <p class="title">Frozen Column</p>
+            <div id="tabs">
+                <div id="tab">
+                    <ul>
+                        <li
+                            *ngFor="let tab of tabs | tabs:'basic'"
+                            [class]="frozenTab === tab.id ? 'selected': ''"
+                            (click)="frozenTab = tab.id"
+                            href="frozen">
+                            <span>{{tab.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="content">
+                    <div *ngIf="frozenTab === 'preview'">
+                        <app-frozen></app-frozen>
+                    </div>
+                    <div *ngIf="frozenTab === 'columns'">
+                        <pre><code [highlight]="frozenColumn.columns" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="frozenTab === 'html'">
+                        <pre><code [highlight]="frozenColumn.html" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="frozenTab === 'data'">
+                        <pre><code [highlight]="frozenColumn.data" language="typescript" lineNumbers></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- 
+        <div id="select-row">
+            <p class="title">Select Row</p>
+
+            <div id="tabs">
+                <div id="tab">
+                    <ul>
+                        <li *ngFor="let tab of tabs" [class]="selectedTab === tab.id ? 'selected': ''"
+                            (click)="selectedTab = tab.id">
+                            <span>{{tab.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="content">
+                    <div *ngIf="selectedTab === 'preview'">
+                        <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)"
+                            (onColumnDrop)="onColumnDrop($event)" (onRowDrop)="onRowDrop($event)" [config]="config"
+                            [columns]="columns" [data]="data">
+                            <ng-template #caption>
+                                <span class="text-md font-bold">
+                                    User List
+                                </span>
+                            </ng-template>
+                            <ng-template #footer>
+                                <span class="text-md font-bold">
+                                    Footer
+                                </span>
+                            </ng-template>
+                        </terminatable>
+                    </div>
+                    <div *ngIf="selectedTab === 'config'">
+                        <pre><code [highlight]="code" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="selectedTab === 'data'">
+                        Data
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+
+
+    <!-- <div style="height: 100%; width: 100%; padding-top: 5%; display: flex; gap: 1rem">
+        <div style="width: 100%;" class="code">
             <pre><code [highlight]="code" language="typescript" lineNumbers></code></pre>
         </div>
-        <div style="width: 70%; border: 2px solid tomato;">
-            <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)" [config]="config"
+        <div style="width: 100%; border: 2px solid tomato;">
+        <div style="width: 100%; border: 2px solid tomato;">
+            <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)" (onColumnDrop)="onColumnDrop($event)" (onRowDrop)="onRowDrop($event)" [config]="config"
                 [columns]="columns" [data]="data">
                 <ng-template #caption>
                     <span class="text-md font-bold">
                         User List
                     </span>
                 </ng-template>
+                <ng-template #tbody>
+                    <tr *ngFor="let d of data">
+                        <td *ngFor="let col of columns">
+                            toprak
+                        </td>
+                    </tr>
+                </ng-template> 
                 <ng-template #footer>
                     <span class="text-md font-bold">
                         Footer
                     </span>
                 </ng-template>
             </terminatable>
-
         </div>
-    </div>
+    </div> -->
 </div>

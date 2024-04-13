@@ -1,90 +1,89 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-// import { TableComponent } from '../../projects/terminatable/src/lib/components/table/table.component';
-import { UserService } from './services/user/user.service';
-import { IUser } from './models/IUser';
-import { IColumn } from '../../projects/terminatable/src/lib/models/IColumn';
-import { IConfig } from '../../projects/terminatable/src/lib/models/IConfig';
 import { CommonModule } from '@angular/common';
-import { CONFIG } from './table.config';
 import { TerminatableComponent } from '../../projects/terminatable/src/public-api';
-import { CODE } from './code';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
+import { BasicComponent } from './basic/components';
+import { TabsPipe } from './pipes';
+import * as BASIC from './basic/codes';
+import * as FROZEN from './frozen/codes';
+import { FrozenComponent } from './frozen/components';
+
+type Tab = 'columns' | 'html' | 'preview' | 'config' | 'data';
+
+export interface ITab {
+  id: Tab;
+  title: string;
+  tables: string[];
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TerminatableComponent, CommonModule, Highlight, HighlightAuto, HighlightLineNumbers],
+  imports: [
+    RouterOutlet,
+    TerminatableComponent,
+    CommonModule,
+    Highlight,
+    HighlightAuto,
+    HighlightLineNumbers,
+    TabsPipe,
+    BasicComponent,
+    FrozenComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'terminatable-project';
 
-  code: string = CODE;
+  basicTab: Tab = 'preview';
+  frozenTab: Tab = 'preview';
 
-  @ViewChild('caption') caption: TemplateRef<any>;
-
-  config: IConfig = CONFIG;
-
-  columns: IColumn[] = [
+  tabs: ITab[] = [
     {
-      field: 'id',
-      title: 'Id',
-      width: 200,
-      isFrozen: true,
-      isVisible: true,
+      id: 'preview',
+      title: 'Preview',
+      tables: ['basic', 'row-select'],
     },
     {
-      field: 'name',
-      title: 'Name',
-      width: 200,
-      isFrozen: false,
-      isVisible: true,
+      id: 'columns',
+      title: 'Columns',
+      tables: ['basic', 'row-select'],
     },
     {
-      field: 'username',
-      title: 'Username',
-      width: 200,
-      isFrozen: false,
-      isVisible: true,
+      id: 'config',
+      title: 'Config',
+      tables: ['row-select'],
     },
     {
-      field: 'email',
-      title: 'E-Mail',
-      width: 200,
-      isFrozen: false,
-      isVisible: true,
+      id: 'data',
+      title: 'Data',
+      tables: ['basic', 'row-select'],
     },
     {
-      field: 'phone',
-      title: 'Phone Number',
-      width: 200,
-      isFrozen: false,
-      isVisible: true,
-    },
-    {
-      field: 'website',
-      title: 'Web Site',
-      width: 200,
-      isFrozen: false,
-      isVisible: true,
+      id: 'html',
+      title: 'HTML',
+      tables: ['basic', 'row-select'],
     },
   ];
 
-  data: IUser[] = [];
-
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-    this.getAllUsers();
-  }
-
-  getAllUsers = async () => {
-    this.data = await this.userService.getAllUsers();
-    // this.data .length = 2;
+  basic = {
+    data: BASIC.USER_CODE,
+    html: BASIC.HTML_CODE,
+    columns: BASIC.COLUMNS_CODE,
   };
+
+  frozenColumn = {
+    data: FROZEN.USER_CODE,
+    html: FROZEN.HTML_CODE,
+    columns: FROZEN.COLUMNS_CODE,
+  };
+
+
+
+  constructor() {}
 
   onChange(event: any[]) {
     console.log(event);
@@ -92,14 +91,13 @@ export class AppComponent implements OnInit {
 
   onRowSelect = (event: any) => {
     console.log(event);
-  }
+  };
 
   onColumnDrop = (event: any) => {
     console.log(event);
-  }
-  
+  };
+
   onRowDrop = (event: any) => {
     console.log(event);
-  }
-
+  };
 }

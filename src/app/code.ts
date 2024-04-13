@@ -1,5 +1,4 @@
-export const CODE: string = `
-export const CONFIG: IConfig = {
+export const CODE: string = `export const CONFIG: IConfig = {
   uniqueField: 'id',
   multiSelect: true,
   rowSelection: true,
@@ -60,5 +59,4 @@ export const CONFIG: IConfig = {
       }
     },
   },
-};
-`;
+};`;
