@@ -9,7 +9,7 @@ export interface IConfig {
   orderable?: IOrder;
   pagination?: IPage;
   strip?: boolean;
-  style: IStyle;
+  style?: IStyle;
 }
 
 // export type SelectionMode = 'none' | 'multi-select' | 'row-selection';

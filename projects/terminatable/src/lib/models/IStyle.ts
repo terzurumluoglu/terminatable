@@ -33,7 +33,7 @@ export interface IStyle {
 
 export interface IRowStyle {
   'background-color'?: string;
-  'line-height'?: number;
+  'line-height'?: string;
 }
 
 export interface IColumnStyle {

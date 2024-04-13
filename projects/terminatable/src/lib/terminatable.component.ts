@@ -57,7 +57,7 @@ export class TerminatableComponent implements AfterViewInit {
     this._config = value;
     this.trStyle = {
       'background-color': value.style.header.color.background,
-      'line-height': value.style.header.lineHeight,
+      'line-height': `${value.style.header.lineHeight}px`,
     };
     this.thStyle = {
       left: value.multiSelect ? '3.25rem' : 0,
@@ -186,7 +186,7 @@ export class TerminatableComponent implements AfterViewInit {
 
   backgroundColor = (obj: { index?: number; row?: any; column?: IColumn }) => {
     const { index, row, column } = obj;
-    if (!!column) {
+    if (!!column?.backgroundColor) {
       return column.backgroundColor;
     }
     const isSelected: boolean = this.isSelectedRow(row);
