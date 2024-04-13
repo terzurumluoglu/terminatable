@@ -22,11 +22,20 @@ import { ICheckboxModel } from './checkbox/models';
 import { CONFIG } from './constants/config';
 import { IColumnStyle, IRowStyle } from './models/IStyle';
 import { IDragAngDrop } from './models/IDragDrop';
+import { PaginationComponent } from './pagination/components';
+import { IPagination } from './pagination/models';
+import { PaginationPipe } from './pipes';
 
 @Component({
   selector: 'terminatable',
   standalone: true,
-  imports: [CommonModule, CheckboxComponent, HoverHighlightDirective],
+  imports: [
+    CommonModule,
+    CheckboxComponent,
+    PaginationComponent,
+    HoverHighlightDirective,
+    PaginationPipe,
+  ],
   templateUrl: './terminatable.component.html',
   styleUrl: './terminatable.component.scss',
   encapsulation: ViewEncapsulation.None,
@@ -48,7 +57,7 @@ export class TerminatableComponent implements AfterViewInit {
     this._config = value;
     this.trStyle = {
       'background-color': value.style.header.color.background,
-      'line-height': value.style.header.lineHeight,
+      'line-height': `${value.style.header.lineHeight}px`,
     };
     this.thStyle = {
       left: value.multiSelect ? '3.25rem' : 0,
@@ -86,6 +95,8 @@ export class TerminatableComponent implements AfterViewInit {
   trStyle: IRowStyle = {};
   thStyle: IColumnStyle = {};
   tdStyle: IColumnStyle = {};
+
+  paginationEvent: IPagination = {};
 
   constructor(private readonly service: TerminatableService) {}
 
@@ -175,7 +186,7 @@ export class TerminatableComponent implements AfterViewInit {
 
   backgroundColor = (obj: { index?: number; row?: any; column?: IColumn }) => {
     const { index, row, column } = obj;
-    if (!!column) {
+    if (!!column?.backgroundColor) {
       return column.backgroundColor;
     }
     const isSelected: boolean = this.isSelectedRow(row);
@@ -188,11 +199,11 @@ export class TerminatableComponent implements AfterViewInit {
 
   setMoveClass = (element: ElementRef) => {
     element.nativeElement.classList.add('move');
-  }
+  };
 
   removeMoveClass = (element: ElementRef) => {
     element.nativeElement.classList.remove('move');
-  }
+  };
 
   getActiveDragbox = (
     index: number,
@@ -215,10 +226,10 @@ export class TerminatableComponent implements AfterViewInit {
     if (this.columnSourceIndex === -1) {
       return;
     }
-    [...Array(this.columnDragboxes.length).keys()].forEach(i => {
+    [...Array(this.columnDragboxes.length).keys()].forEach((i) => {
       const dragbox: ElementRef = this.getActiveDragbox(i, 'column');
       if ([index, this.columnSourceIndex].includes(i)) {
-        this.setMoveClass(dragbox)
+        this.setMoveClass(dragbox);
       } else {
         this.removeMoveClass(dragbox);
       }
@@ -229,8 +240,8 @@ export class TerminatableComponent implements AfterViewInit {
   columnDrop(index: number) {
     [
       this.getActiveDragbox(index, 'column'),
-      this.getActiveDragbox(this.columnSourceIndex, 'column')
-    ].forEach(dragbox => {
+      this.getActiveDragbox(this.columnSourceIndex, 'column'),
+    ].forEach((dragbox) => {
       this.removeMoveClass(dragbox);
     });
     if (!this.dropSuccessControl(index)) {
@@ -279,10 +290,10 @@ export class TerminatableComponent implements AfterViewInit {
     if (this.rowSourceIndex === -1) {
       return;
     }
-    [...Array(this.rowDragboxes.length).keys()].forEach(i => {
+    [...Array(this.rowDragboxes.length).keys()].forEach((i) => {
       const dragbox: ElementRef = this.getActiveDragbox(i, 'row');
       if ([index, this.rowSourceIndex].includes(i)) {
-        this.setMoveClass(dragbox)
+        this.setMoveClass(dragbox);
       } else {
         this.removeMoveClass(dragbox);
       }
@@ -293,8 +304,8 @@ export class TerminatableComponent implements AfterViewInit {
   rowDrop(index: number) {
     [
       this.getActiveDragbox(index, 'row'),
-      this.getActiveDragbox(this.rowSourceIndex, 'row')
-    ].forEach(dragbox => {
+      this.getActiveDragbox(this.rowSourceIndex, 'row'),
+    ].forEach((dragbox) => {
       this.removeMoveClass(dragbox);
     });
     if (this.rowSourceIndex === -1 || index === this.rowSourceIndex) {
@@ -314,5 +325,14 @@ export class TerminatableComponent implements AfterViewInit {
     this.onColumnDrop.emit(dragDropResult);
   }
 
+  //#endregion
+
+  //#region PAGINATION
+  onSelectedPage = (event: IPagination) => {
+    if (!this._config.pagination) {
+      return;
+    }
+    this.paginationEvent = { ...event };
+  };
   //#endregion
 }

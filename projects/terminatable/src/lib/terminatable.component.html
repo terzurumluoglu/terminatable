@@ -10,8 +10,10 @@
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
                     </th>
-                    <th *ngFor="let column of _columns; let i = index" #columnDragbox [draggable]="column.isFrozen ? false : _config.orderable.column" (dragstart)="columnDragStart(i)" (dragover)="columnDragOver($event, i)"
-                    (drop)="columnDrop(i)" scope="col" [class]="column.isFrozen ? 'freeze' : ''" [ngStyle]="thStyle"
+                    <th *ngFor="let column of _columns; let i = index" #columnDragbox
+                        [draggable]="column.isFrozen ? false : _config.orderable.column"
+                        (dragstart)="columnDragStart(i)" (dragover)="columnDragOver($event, i)" (drop)="columnDrop(i)"
+                        scope="col" [class]="column.isFrozen ? 'freeze' : ''" [ngStyle]="thStyle"
                         [style.minWidth.px]="column.width" [style.color]="textColor(column)"
                         [style.backgroundColor]="backgroundColor({column})">
                         <span>
@@ -27,10 +29,11 @@
                 </ng-template>
 
                 <ng-template #noTbodyContent>
-                    <tr *ngFor="let row of _data; let i = index" (click)="selectRow(row)"
+                    <tr *ngFor="let row of _data | pagination:paginationEvent; let i = index" (click)="selectRow(row)"
                         [style.lineHeight.px]="_config.style.body.lineHeight"
                         [style.backgroundColor]="backgroundColor({index: i, row})"
-                        [libHoverHighlight]="hoverHighlightInput(row, i)" #rowDragbox [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
+                        [libHoverHighlight]="hoverHighlightInput(row, i)" #rowDragbox
+                        [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
                         (dragover)="rowDragOver($event, i)" (drop)="rowDrop(i)">
                         <td *ngIf="_config.multiSelect" class="freeze">
                             <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
@@ -47,7 +50,15 @@
             </tbody>
         </table>
     </div>
-    <div class="table-footer" *ngIf="footer">
-        <ng-container [ngTemplateOutlet]="footer"></ng-container>
+
+    <div class="table-footer" *ngIf="!!footer || !!_config.pagination">
+        <div *ngIf="!!_config.pagination;then paginationTemplate else footerTemplate"></div>
+        <ng-template #paginationTemplate>
+            <lib-pagination #pagination *ngIf="!!_config.pagination" [config]="_config" [data]="_data"
+                [limit]="_config.pagination.rows" (onSelectedPage)="onSelectedPage($event)"></lib-pagination>
+        </ng-template>
+        <ng-template #footerTemplate>
+            <ng-container [ngTemplateOutlet]="footer"></ng-container>
+        </ng-template>
     </div>
 </div>

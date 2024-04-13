@@ -8,6 +8,9 @@ export const CONFIG: IConfig = {
     column: false,
     row: false,
   },
+  // pagination: {
+  //   rows: 5
+  // },
   strip: false,
   style: {
     header: {

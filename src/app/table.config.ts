@@ -8,6 +8,9 @@ export const CONFIG: IConfig = {
     column: true,
     row: true,
   },
+  pagination: {
+    rows: 5
+  },
   strip: true,
   style: {
     header: {
@@ -61,7 +64,6 @@ export const CONFIG: IConfig = {
           size: 16,
           weight: 'normal',
         },
-        
       }
     },
   },
