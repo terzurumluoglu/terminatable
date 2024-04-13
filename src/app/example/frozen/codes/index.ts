@@ -45,7 +45,7 @@ export const COLUMNS_CODE: string = `export const columns: IColumn[] = [
     },
   ];`;
 
-  export const USER_CODE: string = `export const data: any[] = [
+export const USER_CODE: string = `export const data: any[] = [
     {
       id: 1,
       name: 'Leanne Graham',

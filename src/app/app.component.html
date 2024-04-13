@@ -49,7 +49,7 @@
                 <div id="tab">
                     <ul>
                         <li
-                            *ngFor="let tab of tabs | tabs:'basic'"
+                            *ngFor="let tab of tabs | tabs:'frozen'"
                             [class]="frozenTab === tab.id ? 'selected': ''"
                             (click)="frozenTab = tab.id"
                             href="frozen">
@@ -69,6 +69,40 @@
                     </div>
                     <div *ngIf="frozenTab === 'data'">
                         <pre><code [highlight]="frozenColumn.data" language="typescript" lineNumbers></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="strip">
+            <p class="title">Strip Column</p>
+            <div id="tabs">
+                <div id="tab">
+                    <ul>
+                        <li
+                            *ngFor="let tab of tabs | tabs:'strip'"
+                            [class]="stripTab === tab.id ? 'selected': ''"
+                            (click)="stripTab = tab.id"
+                            href="frozen">
+                            <span>{{tab.title}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="content">
+                    <div *ngIf="stripTab === 'preview'">
+                        <app-strip></app-strip>
+                    </div>
+                    <div *ngIf="stripTab === 'columns'">
+                        <pre><code [highlight]="strip.columns" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="stripTab === 'config'">
+                        <pre><code [highlight]="strip.config" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="stripTab === 'html'">
+                        <pre><code [highlight]="strip.html" language="typescript" lineNumbers></code></pre>
+                    </div>
+                    <div *ngIf="stripTab === 'data'">
+                        <pre><code [highlight]="strip.data" language="typescript" lineNumbers></code></pre>
                     </div>
                 </div>
             </div>

@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import {
-  IColumn,
-  IConfig,
-  TerminatableComponent,
-} from '../../../../../projects/terminatable/src/public-api';
+
 import { CONFIG } from '../../constants';
-import { IUser } from '../../../models/IUser';
-import { USERS } from '../../../mock';
 import { COLUMNS } from '../../constants/columns';
+import { IColumn, IConfig, TerminatableComponent } from '../../../../../../projects/terminatable/src/public-api';
+import { IUser } from '../../../../models/IUser';
+import { USERS } from '../../../../mock';
 
 @Component({
   selector: 'app-frozen',

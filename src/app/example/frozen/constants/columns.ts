@@ -1,11 +1,11 @@
-import { IColumn } from '../../../../projects/terminatable/src/public-api';
+import { IColumn } from "../../../../../projects/terminatable/src/public-api";
 
 export const COLUMNS: IColumn[] = [
   {
     field: 'id',
     title: 'Id',
     width: 100,
-    isFrozen: false,
+    isFrozen: true,
     isVisible: true,
   },
   {

@@ -1,13 +1,9 @@
 import { Component } from '@angular/core';
-import {
-  IColumn,
-  IConfig,
-  TerminatableComponent,
-} from '../../../../../projects/terminatable/src/public-api';
-import { CONFIG } from '../../constants';
-import { IUser } from '../../../models/IUser';
-import { USERS } from '../../../mock';
 import { COLUMNS } from '../../constants/columns';
+import { IColumn, IConfig, TerminatableComponent } from '../../../../../../projects/terminatable/src/public-api';
+import { CONFIG } from '../../constants';
+import { USERS } from '../../../../mock';
+import { IUser } from '../../../../models/IUser';
 
 @Component({
   selector: 'app-basic',
