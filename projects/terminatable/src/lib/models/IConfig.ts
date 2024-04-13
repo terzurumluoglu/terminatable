@@ -1,4 +1,5 @@
 import { IOrder } from "./IOrder";
+import { IPage } from "./IPage";
 import { IStyle } from "./IStyle";
 
 export interface IConfig {
@@ -6,6 +7,7 @@ export interface IConfig {
   multiSelect?: boolean;
   rowSelection?: boolean;
   orderable?: IOrder;
+  pagination?: IPage;
   strip?: boolean;
   style: IStyle;
 }

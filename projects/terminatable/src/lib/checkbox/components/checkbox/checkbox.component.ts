@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ICheckboxModel } from '../../models/ICheckbox';
+import { ICheckboxModel } from '../../models';
 
 @Component({
   selector: 'lib-checkbox',
@@ -34,5 +34,9 @@ export class CheckboxComponent implements OnInit {
     const checked: boolean = (event.target as HTMLInputElement).checked;
     const res: ICheckboxModel = { event, checked, value };
     this.onChangeEmitter.emit(res);
+  }
+
+  stopPropagation = (event: MouseEvent) => {
+    event.stopPropagation();
   }
 }
