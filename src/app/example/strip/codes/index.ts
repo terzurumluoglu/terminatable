@@ -1,11 +1,11 @@
-export const HTML_CODE: string = `<terminatable [columns]="columns" [data]="data"></terminatable>`;
+export const HTML_CODE: string = `<terminatable [config]="config" [columns]="columns" [data]="data"></terminatable>`;
 
 export const COLUMNS_CODE: string = `export const columns: IColumn[] = [
     {
       field: 'id',
       title: 'Id',
       width: 100,
-      isFrozen: true, // MUST BE SET AS TRUE
+      isFrozen: true,
       isVisible: true,
     },
     {
@@ -73,3 +73,8 @@ export const COLUMNS_CODE: string = `export const columns: IColumn[] = [
     ...,
     ...,
   ];`;
+
+  export const CONFIG_CODE: string = `export const CONFIG: IConfig = {
+    uniqueField: 'id', // Always Require
+    strip: true,
+  };`

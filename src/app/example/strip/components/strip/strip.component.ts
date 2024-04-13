@@ -7,7 +7,7 @@ import { IUser } from '../../../../models/IUser';
 import { CONFIG } from '../../constants';
 
 @Component({
-  selector: 'app-frozen',
+  selector: 'app-strip',
   standalone: true,
   imports: [TerminatableComponent],
   templateUrl: './strip.component.html',
