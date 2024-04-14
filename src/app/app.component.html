@@ -13,101 +13,17 @@
     </div>
     <div class="content">
 
-        <div id="basic">
-            <p class="title">Basic</p>
-            <div id="tabs">
-                <div id="tab">
-                    <ul>
-                        <li
-                            *ngFor="let tab of tabs | tabs:'basic'"
-                            [class]="basicTab === tab.id ? 'selected': ''"
-                            (click)="basicTab = tab.id">
-                            <span>{{tab.title}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="content">
-                    <div *ngIf="basicTab === 'preview'">
-                        <app-basic></app-basic>
-                    </div>
-                    <div *ngIf="basicTab === 'columns'">
-                        <pre><code [highlight]="basic.columns" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="basicTab === 'html'">
-                        <pre><code [highlight]="basic.html" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="basicTab === 'data'">
-                        <pre><code [highlight]="basic.data" language="typescript" lineNumbers></code></pre>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <app-basic></app-basic>
         </div>
-
-        <div id="frozen">
-            <p class="title">Frozen Column</p>
-            <div id="tabs">
-                <div id="tab">
-                    <ul>
-                        <li
-                            *ngFor="let tab of tabs | tabs:'frozen'"
-                            [class]="frozenTab === tab.id ? 'selected': ''"
-                            (click)="frozenTab = tab.id"
-                            href="frozen">
-                            <span>{{tab.title}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="content">
-                    <div *ngIf="frozenTab === 'preview'">
-                        <app-frozen></app-frozen>
-                    </div>
-                    <div *ngIf="frozenTab === 'columns'">
-                        <pre><code [highlight]="frozenColumn.columns" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="frozenTab === 'html'">
-                        <pre><code [highlight]="frozenColumn.html" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="frozenTab === 'data'">
-                        <pre><code [highlight]="frozenColumn.data" language="typescript" lineNumbers></code></pre>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <app-frozen></app-frozen>
         </div>
-
-        <div id="strip">
-            <p class="title">Strip Column</p>
-            <div id="tabs">
-                <div id="tab">
-                    <ul>
-                        <li
-                            *ngFor="let tab of tabs | tabs:'strip'"
-                            [class]="stripTab === tab.id ? 'selected': ''"
-                            (click)="stripTab = tab.id"
-                            href="frozen">
-                            <span>{{tab.title}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="content">
-                    <div *ngIf="stripTab === 'preview'">
-                        <app-strip></app-strip>
-                    </div>
-                    <div *ngIf="stripTab === 'columns'">
-                        <pre><code [highlight]="strip.columns" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="stripTab === 'config'">
-                        <pre><code [highlight]="strip.config" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="stripTab === 'html'">
-                        <pre><code [highlight]="strip.html" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="stripTab === 'data'">
-                        <pre><code [highlight]="strip.data" language="typescript" lineNumbers></code></pre>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <app-strip></app-strip>
         </div>
-<!-- 
+        
+        <!-- 
         <div id="select-row">
             <p class="title">Select Row</p>
 

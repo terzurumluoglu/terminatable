@@ -12,14 +12,6 @@ import * as STRIP from './example/strip/codes';
 import { FrozenComponent } from './example/frozen/components';
 import { StripComponent } from './example/strip/components';
 
-type Tab = 'columns' | 'html' | 'preview' | 'config' | 'data';
-
-export interface ITab {
-  id: Tab;
-  title: string;
-  tables: string[];
-}
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -40,57 +32,6 @@ export interface ITab {
 })
 export class AppComponent {
   title = 'terminatable-project';
-
-  basicTab: Tab = 'preview';
-  frozenTab: Tab = 'preview';
-  stripTab: Tab = 'preview';
-
-  tabs: ITab[] = [
-    {
-      id: 'preview',
-      title: 'Preview',
-      tables: ['basic', 'row-select', 'strip'],
-    },
-    {
-      id: 'columns',
-      title: 'Columns',
-      tables: ['basic', 'row-select', 'strip'],
-    },
-    {
-      id: 'config',
-      title: 'Config',
-      tables: ['row-select', 'strip'],
-    },
-    {
-      id: 'data',
-      title: 'Data',
-      tables: ['basic', 'row-select', 'strip'],
-    },
-    {
-      id: 'html',
-      title: 'HTML',
-      tables: ['basic', 'row-select', 'strip'],
-    },
-  ];
-
-  basic = {
-    data: BASIC.USER_CODE,
-    html: BASIC.HTML_CODE,
-    columns: BASIC.COLUMNS_CODE,
-  };
-
-  frozenColumn = {
-    data: FROZEN.USER_CODE,
-    html: FROZEN.HTML_CODE,
-    columns: FROZEN.COLUMNS_CODE,
-  };
-
-  strip = {
-    data: STRIP.USER_CODE,
-    html: STRIP.HTML_CODE,
-    columns: STRIP.COLUMNS_CODE,
-    config: STRIP.CONFIG_CODE,
-  };
 
   constructor() {}
 
