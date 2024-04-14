@@ -11,3 +11,96 @@ html, body {
 
 
 @import '../node_modules/highlight.js/styles/androidstudio.css';
+
+.container {
+    display: flex;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2rem;
+
+    .header {
+        width: 50%;
+        padding: 2rem 2rem 0 2rem;
+        text-align: center;
+
+        h1 {
+            &.title {
+                color: #555555;
+                margin-bottom: 1rem;
+            }
+        }
+        .sub-title {
+            border-top: 1px solid #000;
+            padding-top: 2rem;
+            color: #555555;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .content {
+        width: 90%;
+        padding: 2rem;
+        &>*:not(:last-child){
+            margin-bottom: 100px;
+        }
+
+
+        .title {
+            padding: 1.5rem;
+            font-size: 1.5rem;
+            color: #555555;
+            text-align: center;
+            background-color: #e6f0ff;
+            margin-bottom: 1rem;
+        }
+
+
+        #tabs {
+            // margin-top: 4rem;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #6aa3ff;
+            // border-bottom-left-radius: 5px;
+            // border-bottom-right-radius: 5px;
+
+            #tab {
+                overflow: hidden;
+                background-color: #C5DBFF;
+                height: 3rem;
+                // padding: 0.75rem 0.5rem;
+
+                ul {
+                    height: 100%;
+                    list-style-type: none;
+                    display: flex;
+                    // gap: 1rem;
+                    justify-content: flex-end;
+                    li {
+                        cursor: pointer;
+                        height: 100%;
+                        padding: 0.75rem 0.5rem;
+                        font-size: 1rem;
+                        &.selected {
+                            background-color: #6aa3ff;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                button {
+                    background-color: inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 17px;
+                }
+            }
+
+            #content {}
+        }
+    }
+}
