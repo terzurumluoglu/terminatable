@@ -5,15 +5,36 @@ import { IColumn, IConfig, TerminatableComponent } from '../../../../../../proje
 import { USERS } from '../../../../mock';
 import { IUser } from '../../../../models/IUser';
 import { CONFIG } from '../../constants';
+import { TABS } from '../../../../mock/tabs';
+import { ITab, Tab } from '../../../../models/ITab';
+import { COLUMNS_CODE, CONFIG_CODE, HTML_CODE, USER_CODE } from '../../codes';
+import { CommonModule } from '@angular/common';
+import { TabsPipe } from '../../../../pipes';
+import { Highlight, HighlightAuto } from 'ngx-highlightjs';
+import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 
 @Component({
   selector: 'app-strip',
   standalone: true,
-  imports: [TerminatableComponent],
+  imports: [
+    CommonModule,
+    TerminatableComponent,
+    TabsPipe,
+    Highlight,
+    HighlightAuto,
+    HighlightLineNumbers,],
   templateUrl: './strip.component.html',
   styleUrl: './strip.component.scss',
 })
 export class StripComponent {
+  tabs: ITab[] = TABS;
+  selectedTab: Tab = 'preview';
+
+  dataCode =  USER_CODE;
+  htmlCode = HTML_CODE;
+  columnsCode = COLUMNS_CODE;
+  configCode = CONFIG_CODE;
+
   config: IConfig = CONFIG;
   columns: IColumn[] = COLUMNS;
 

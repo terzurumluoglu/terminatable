@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ITab } from '../../app.component';
+import { ITab } from '../../models/ITab';
 
 @Pipe({
   name: 'tabs',
