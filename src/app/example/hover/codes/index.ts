@@ -75,6 +75,17 @@ export const COLUMNS_CODE: string = `export const columns: IColumn[] = [
   ];`;
 
   export const CONFIG_CODE: string = `export const CONFIG: IConfig = {
-    uniqueField: 'id', // Always Require
+    uniqueField: 'id',
     strip: true,
+    hover: true,
+    style: {
+      body: {
+        hover: {
+          color: {
+            background: '#9C5858',
+            text: '#FFFFFF'
+          }
+        }
+      }
+    }
   };`

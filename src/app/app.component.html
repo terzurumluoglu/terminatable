@@ -22,76 +22,10 @@
         <div>
             <app-strip></app-strip>
         </div>
-        
-        <!-- 
-        <div id="select-row">
-            <p class="title">Select Row</p>
+        <div>
+            <app-hover></app-hover>
+        </div>
 
-            <div id="tabs">
-                <div id="tab">
-                    <ul>
-                        <li *ngFor="let tab of tabs" [class]="selectedTab === tab.id ? 'selected': ''"
-                            (click)="selectedTab = tab.id">
-                            <span>{{tab.title}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="content">
-                    <div *ngIf="selectedTab === 'preview'">
-                        <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)"
-                            (onColumnDrop)="onColumnDrop($event)" (onRowDrop)="onRowDrop($event)" [config]="config"
-                            [columns]="columns" [data]="data">
-                            <ng-template #caption>
-                                <span class="text-md font-bold">
-                                    User List
-                                </span>
-                            </ng-template>
-                            <ng-template #footer>
-                                <span class="text-md font-bold">
-                                    Footer
-                                </span>
-                            </ng-template>
-                        </terminatable>
-                    </div>
-                    <div *ngIf="selectedTab === 'config'">
-                        <pre><code [highlight]="code" language="typescript" lineNumbers></code></pre>
-                    </div>
-                    <div *ngIf="selectedTab === 'data'">
-                        Data
-                    </div>
-                </div>
-            </div>
-        </div> -->
+
     </div>
-
-
-
-    <!-- <div style="height: 100%; width: 100%; padding-top: 5%; display: flex; gap: 1rem">
-        <div style="width: 100%;" class="code">
-            <pre><code [highlight]="code" language="typescript" lineNumbers></code></pre>
-        </div>
-        <div style="width: 100%; border: 2px solid tomato;">
-        <div style="width: 100%; border: 2px solid tomato;">
-            <terminatable (onChange)="onChange($event)" (onRowSelect)="onRowSelect($event)" (onColumnDrop)="onColumnDrop($event)" (onRowDrop)="onRowDrop($event)" [config]="config"
-                [columns]="columns" [data]="data">
-                <ng-template #caption>
-                    <span class="text-md font-bold">
-                        User List
-                    </span>
-                </ng-template>
-                <ng-template #tbody>
-                    <tr *ngFor="let d of data">
-                        <td *ngFor="let col of columns">
-                            toprak
-                        </td>
-                    </tr>
-                </ng-template> 
-                <ng-template #footer>
-                    <span class="text-md font-bold">
-                        Footer
-                    </span>
-                </ng-template>
-            </terminatable>
-        </div>
-    </div> -->
 </div>
