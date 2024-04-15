@@ -6,14 +6,13 @@
                 <li
                     *ngFor="let tab of tabs | tabs:'strip'"
                     [class]="selectedTab === tab.id ? 'selected': ''"
-                    (click)="selectedTab = tab.id"
-                    href="frozen">
+                    (click)="selectedTab = tab.id">
                     <span>{{tab.title}}</span>
                 </li>
             </ul>
         </div>
         <div id="content">
-            <div *ngIf="selectedTab === 'preview'">
+            <div id="{{selectedTab}}" *ngIf="selectedTab === 'preview'">
                 <terminatable [config]="config" [columns]="columns" [data]="data"></terminatable>
             </div>
             <div *ngIf="selectedTab === 'columns'">

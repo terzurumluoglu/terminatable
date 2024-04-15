@@ -12,7 +12,7 @@
             </ul>
         </div>
         <div id="content">
-            <div *ngIf="selectedTab === 'preview'">
+            <div id="{{selectedTab}}" *ngIf="selectedTab === 'preview'">
                 <terminatable [columns]="columns" [data]="data"></terminatable>
             </div>
             <div *ngIf="selectedTab === 'columns'">

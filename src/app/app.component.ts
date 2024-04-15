@@ -6,11 +6,9 @@ import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
 import { BasicComponent } from './example/basic/components';
 import { TabsPipe } from './pipes';
-import * as BASIC from './example/basic/codes';
-import * as FROZEN from './example/frozen/codes';
-import * as STRIP from './example/strip/codes';
 import { FrozenComponent } from './example/frozen/components';
 import { StripComponent } from './example/strip/components';
+import { HoverComponent } from './example/hover/components';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +24,7 @@ import { StripComponent } from './example/strip/components';
     BasicComponent,
     FrozenComponent,
     StripComponent,
+    HoverComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
