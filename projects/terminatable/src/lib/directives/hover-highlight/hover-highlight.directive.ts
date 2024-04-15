@@ -26,6 +26,9 @@ export class HoverHighlightDirective {
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {
+    if (!this.libHoverHighlight.config.hover) {
+      return;
+    }
     const {
       config: {
         style: {
@@ -52,6 +55,9 @@ export class HoverHighlightDirective {
 
   @HostListener('mouseleave') onMouseLeave() {
     const { config, index, selected } = this.libHoverHighlight;
+    if (!config.hover) {
+      return;
+    }
     const { background, text } = this.styleService.color(
       config,
       index,

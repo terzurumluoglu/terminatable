@@ -9,5 +9,6 @@ export interface IConfig {
   orderable?: IOrder;
   pagination?: IPage;
   strip?: boolean;
+  hover?: boolean;
   style?: IStyle;
 }

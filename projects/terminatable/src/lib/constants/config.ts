@@ -12,6 +12,7 @@ export const CONFIG: IConfig = {
   //   rows: 5
   // },
   strip: false,
+  hover: false,
   style: {
     header: {
       lineHeight: 8,
