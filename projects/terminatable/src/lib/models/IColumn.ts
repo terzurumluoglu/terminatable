@@ -4,6 +4,6 @@ export interface IColumn {
     width?: number;
     isFrozen?: boolean;
     isVisible?: boolean;
-    backgroundColor?: string;
-    color?: string;
+    // backgroundColor?: string;
+    // color?: string;
 }

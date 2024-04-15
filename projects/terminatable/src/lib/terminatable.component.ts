@@ -51,11 +51,12 @@ export class TerminatableComponent implements AfterViewInit {
   _tableContainerHeight: SafeStyle =
     this.service.bypassSecurityTrustStyle('calc(100%)');
 
-  _config: IConfig = CONFIG;
+  _config: IConfig = structuredClone(CONFIG);
   @Input() set config(value: IConfig) {
-    value = { ...CONFIG, ...value };
+    value = this.service.deepMerge(this._config, value);
     this._config = value;
     this.trStyle = {
+      color: value.style.header.color.text,
       'background-color': value.style.header.color.background,
       'line-height': `${value.style.header.lineHeight}px`,
     };
@@ -172,11 +173,10 @@ export class TerminatableComponent implements AfterViewInit {
 
   //#region STYLE
 
-  textColor(column: IColumn, index: number = -1): string {
-    if (!!column?.color) {
-      return column.color;
-    }
-    return this._config.style.body.even.color.text;
+  textColor(obj: { index?: number; row?: any; }): string {
+    const { index, row } = obj;
+    const isSelected: boolean = this.isSelectedRow(row);
+    return this.service.color(this._config, index, isSelected).text;
   }
 
   hoverHighlightInput = (row: any, index: number) => {
@@ -184,13 +184,10 @@ export class TerminatableComponent implements AfterViewInit {
     return { config: this._config, index, selected };
   };
 
-  backgroundColor = (obj: { index?: number; row?: any; column?: IColumn }) => {
-    const { index, row, column } = obj;
-    if (!!column?.backgroundColor) {
-      return column.backgroundColor;
-    }
+  backgroundColor = (obj: { index?: number; row?: any; }) => {
+    const { index, row } = obj;
     const isSelected: boolean = this.isSelectedRow(row);
-    return this.service.background(this._config, index, isSelected);
+    return this.service.color(this._config, index, isSelected).background;
   };
 
   //#endregion

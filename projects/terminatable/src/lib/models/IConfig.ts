@@ -11,5 +11,3 @@ export interface IConfig {
   strip?: boolean;
   style?: IStyle;
 }
-
-// export type SelectionMode = 'none' | 'multi-select' | 'row-selection';
