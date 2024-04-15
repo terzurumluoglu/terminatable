@@ -1,24 +1,25 @@
 # Terminatable
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+## !!! It is not stable yet
 
-## Code scaffolding
+Terminatable is being developed who use table in their app and customize that.
 
-Run `ng generate component component-name --project terminatable` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project terminatable`.
-> Note: Don't forget to add `--project terminatable` or else it will be added to the default project in your `angular.json` file. 
+### Example
 
-## Build
+How can I use in my app? [Visit](https://terminatable.onrender.com)
 
-Run `ng build terminatable` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Publishing
+Use the package manager [npm](https://pip.pypa.io/en/stable/) to install foobar.
 
-After building your library with `ng build terminatable`, go to the dist folder `cd dist/terminatable` and run `npm publish`.
+Use the package manager npm to install Terminatable.
 
-## Running unit tests
+```bash
+npm install terminatable
+```
 
-Run `ng test terminatable` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Usage
 
-## Further help
+## Contributing
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## License
