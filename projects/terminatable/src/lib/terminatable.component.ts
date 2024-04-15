@@ -16,7 +16,7 @@ import {
 import { CheckboxComponent } from './checkbox/components';
 import { HoverHighlightDirective } from './directives';
 import { SafeStyle } from '@angular/platform-browser';
-import { IColumn, IConfig } from './models';
+import { IColumn, IConfig, IRowSelection } from './models';
 import { TerminatableService } from './terminatable.service';
 import { ICheckboxModel } from './checkbox/models';
 import { CONFIG } from './constants/config';
@@ -113,7 +113,11 @@ export class TerminatableComponent implements AfterViewInit {
     }
     this.selectedRow = this.isSelectedRow(row) ? undefined : row;
     const { checked, ...data } = row;
-    this.onRowSelect.emit(data);
+    const result: IRowSelection = {
+      isSelected: !!this.selectedRow,
+      row: data,
+    };
+    this.onRowSelect.emit(result);
   };
 
   filterChecked = (data: any[]) => {

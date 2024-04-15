@@ -9,6 +9,7 @@ import { TabsPipe } from './pipes';
 import { FrozenComponent } from './example/frozen/components';
 import { StripComponent } from './example/strip/components';
 import { HoverComponent } from './example/hover/components';
+import { RowSelectionComponent } from './example/row-selection/components';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { HoverComponent } from './example/hover/components';
     FrozenComponent,
     StripComponent,
     HoverComponent,
+    RowSelectionComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

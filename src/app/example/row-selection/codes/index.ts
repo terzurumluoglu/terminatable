@@ -1,11 +1,17 @@
-export const HTML_CODE: string = `  <terminatable [columns]="columns" [data]="data"></terminatable>`;
+export const HTML_CODE: string = `  <terminatable
+    [config]="config"
+    [columns]="columns"
+    [data]="data"
+    (onRowSelect)="onRowSelect($event)"
+  ></terminatable>
+`;
 
 export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     {
       field: 'id',
       title: 'Id',
       width: 100,
-      isFrozen: false,
+      isFrozen: true,
       isVisible: true,
     },
     {
@@ -45,7 +51,7 @@ export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     },
   ];`;
 
-export const USER_CODE: string = `  export const data: any[] = [
+  export const USER_CODE: string = `  export const data: any[] = [
     {
       id: 1,
       name: 'Leanne Graham',
@@ -73,3 +79,13 @@ export const USER_CODE: string = `  export const data: any[] = [
     ...,
     ...,
   ];`;
+
+  export const CONFIG_CODE: string = `  export const CONFIG: IConfig = {
+    uniqueField: 'id', // Always Require
+    strip: true,
+    rowSelection: true,
+  };`
+
+  export const EVENT_CODE: string = `  onRowSelect = (event: IRowSelection) => {
+    console.log(event);
+  }`;
