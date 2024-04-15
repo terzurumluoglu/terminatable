@@ -26,4 +26,9 @@ export const TABS: ITab[] = [
     title: 'HTML',
     tables: ['basic', 'frozen', 'strip', 'hover', 'row-selection'],
   },
+  {
+    id: 'event',
+    title: 'Event',
+    tables: ['row-selection'],
+  },
 ];
