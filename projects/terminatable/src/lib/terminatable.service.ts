@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SanitizerService, StyleService } from './services';
+import { SanitizerService, StyleService, UtilsService } from './services';
 import { IConfig } from './models';
 
 @Injectable({
@@ -8,7 +8,8 @@ import { IConfig } from './models';
 export class TerminatableService {
   constructor(
     private readonly sanitizerService: SanitizerService,
-    private readonly styleService: StyleService
+    private readonly styleService: StyleService,
+    private readonly utils: UtilsService,
   ) {}
 
   //#region Sanitizer Service
@@ -22,8 +23,14 @@ export class TerminatableService {
     return this.styleService.calculateTableContainerHeight(size);
   };
 
-  background = (config: IConfig, index: number, isSelected: boolean) => {
-    return this.styleService.background(config, index, isSelected);
+  color = (config: IConfig, index: number, isSelected: boolean) => {
+    return this.styleService.color(config, index, isSelected);
   };
+  //#endregion
+
+  //#region UTILS
+  deepMerge = (target: IConfig, source: IConfig) => {
+    return this.utils.deepMerge(target, source);
+  }
   //#endregion
 }

@@ -9,7 +9,6 @@ export interface IConfig {
   orderable?: IOrder;
   pagination?: IPage;
   strip?: boolean;
+  hover?: boolean;
   style?: IStyle;
 }
-
-// export type SelectionMode = 'none' | 'multi-select' | 'row-selection';

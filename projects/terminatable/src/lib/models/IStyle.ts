@@ -32,6 +32,7 @@ export interface IStyle {
 }
 
 export interface IRowStyle {
+  color?: string;
   'background-color'?: string;
   'line-height'?: string;
 }

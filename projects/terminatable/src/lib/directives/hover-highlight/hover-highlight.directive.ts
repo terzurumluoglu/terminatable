@@ -26,12 +26,15 @@ export class HoverHighlightDirective {
   ) {}
 
   @HostListener('mouseenter') onMouseEnter() {
+    if (!this.libHoverHighlight.config.hover) {
+      return;
+    }
     const {
       config: {
         style: {
           body: {
             hover: {
-              color: { background },
+              color: { background, text },
             },
           },
         },
@@ -43,11 +46,24 @@ export class HoverHighlightDirective {
       'background-color',
       background
     );
+    this.renderer.setStyle(
+      this.el.nativeElement,
+      'color',
+      text
+    );
   }
 
   @HostListener('mouseleave') onMouseLeave() {
     const { config, index, selected } = this.libHoverHighlight;
-    const color: string = this.styleService.background(config, index, selected);
-    this.renderer.setStyle(this.el.nativeElement, 'background-color', color);
+    if (!config.hover) {
+      return;
+    }
+    const { background, text } = this.styleService.color(
+      config,
+      index,
+      selected
+    );
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', background);
+    this.renderer.setStyle(this.el.nativeElement, 'color', text);
   }
 }

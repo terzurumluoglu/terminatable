@@ -14,8 +14,7 @@
                         [draggable]="column.isFrozen ? false : _config.orderable.column"
                         (dragstart)="columnDragStart(i)" (dragover)="columnDragOver($event, i)" (drop)="columnDrop(i)"
                         scope="col" [class]="column.isFrozen ? 'freeze' : ''" [ngStyle]="thStyle"
-                        [style.minWidth.px]="column.width" [style.color]="textColor(column)"
-                        [style.backgroundColor]="backgroundColor({column})">
+                        [style.minWidth.px]="column.width">
                         <span>
                             {{column.title}}
                         </span>
@@ -32,6 +31,7 @@
                     <tr *ngFor="let row of _data | pagination:paginationEvent; let i = index" (click)="selectRow(row)"
                         [style.lineHeight.px]="_config.style.body.lineHeight"
                         [style.backgroundColor]="backgroundColor({index: i, row})"
+                        [style.color]="textColor({index: i, row})"
                         [libHoverHighlight]="hoverHighlightInput(row, i)" #rowDragbox
                         [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
                         (dragover)="rowDragOver($event, i)" (drop)="rowDrop(i)">
@@ -39,8 +39,7 @@
                             <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
                         </td>
                         <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
-                            [ngStyle]="tdStyle" [style.minWidth.px]="column.width" [style.color]="textColor(column, i)"
-                            [style.backgroundColor]="backgroundColor({index: i, row, column})">
+                            [ngStyle]="tdStyle" [style.minWidth.px]="column.width" >
                             <span>
                                 {{row[column.field]}}
                             </span>
