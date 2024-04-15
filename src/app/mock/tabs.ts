@@ -4,26 +4,26 @@ export const TABS: ITab[] = [
   {
     id: 'preview',
     title: 'Preview',
-    tables: ['basic', 'row-select', 'strip', 'frozen'],
+    tables: ['basic', 'frozen', 'strip', 'hover', 'row-selection'],
   },
   {
     id: 'columns',
     title: 'Columns',
-    tables: ['basic', 'row-select', 'strip', 'frozen'],
+    tables: ['basic', 'frozen', 'strip', 'hover', 'row-selection'],
   },
   {
     id: 'config',
     title: 'Config',
-    tables: ['row-select', 'strip'],
+    tables: ['strip', 'hover', 'row-selection'], 
   },
   {
     id: 'data',
     title: 'Data',
-    tables: ['basic', 'row-select', 'strip', 'frozen'],
+    tables: ['basic', 'frozen', 'strip', 'hover', 'row-selection'],
   },
   {
     id: 'html',
     title: 'HTML',
-    tables: ['basic', 'row-select', 'strip', 'frozen'],
+    tables: ['basic', 'frozen', 'strip', 'hover', 'row-selection'],
   },
 ];
