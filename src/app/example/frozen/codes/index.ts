@@ -1,4 +1,7 @@
-export const HTML_CODE: string = `  <terminatable [columns]="columns" [data]="data"></terminatable>`;
+export const HTML_CODE: string = `  <terminatable
+    [columns]="columns"
+    [data]="data"
+  ></terminatable>`;
 
 export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     {
