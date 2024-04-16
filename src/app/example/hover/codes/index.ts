@@ -78,14 +78,4 @@ export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     uniqueField: 'id',
     strip: true,
     hover: true,
-    style: {
-      body: {
-        hover: {
-          color: {
-            background: '#9C5858',
-            text: '#FFFFFF'
-          }
-        }
-      }
-    }
   };`
