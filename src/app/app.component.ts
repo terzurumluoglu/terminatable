@@ -11,6 +11,7 @@ import { StripComponent } from './example/strip/components';
 import { HoverComponent } from './example/hover/components';
 import { RowSelectionComponent } from './example/row-selection/components';
 import { ColorCustomizeComponent } from './example/color-customize/components';
+import { MultiSelectComponent } from './example/multi-select/components';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import { ColorCustomizeComponent } from './example/color-customize/components';
     HoverComponent,
     RowSelectionComponent,
     ColorCustomizeComponent,
+    MultiSelectComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
