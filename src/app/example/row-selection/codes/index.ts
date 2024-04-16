@@ -3,8 +3,7 @@ export const HTML_CODE: string = `  <terminatable
     [columns]="columns"
     [data]="data"
     (onRowSelect)="onRowSelect($event)"
-  ></terminatable>
-`;
+  ></terminatable>`;
 
 export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     {

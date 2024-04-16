@@ -10,6 +10,7 @@ import { FrozenComponent } from './example/frozen/components';
 import { StripComponent } from './example/strip/components';
 import { HoverComponent } from './example/hover/components';
 import { RowSelectionComponent } from './example/row-selection/components';
+import { ColorCustomizeComponent } from './example/color-customize/components';
 
 @Component({
   selector: 'app-root',
@@ -27,6 +28,7 @@ import { RowSelectionComponent } from './example/row-selection/components';
     StripComponent,
     HoverComponent,
     RowSelectionComponent,
+    ColorCustomizeComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

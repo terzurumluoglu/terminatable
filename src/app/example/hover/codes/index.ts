@@ -1,4 +1,8 @@
-export const HTML_CODE: string = `  <terminatable [config]="config" [columns]="columns" [data]="data"></terminatable>`;
+export const HTML_CODE: string = `  <terminatable
+    [config]="config"
+    [columns]="columns"
+    [data]="data"
+  ></terminatable>`;
 
 export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     {
@@ -45,7 +49,7 @@ export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     },
   ];`;
 
-  export const USER_CODE: string = `  export const data: any[] = [
+export const USER_CODE: string = `  export const data: any[] = [
     {
       id: 1,
       name: 'Leanne Graham',
@@ -74,8 +78,8 @@ export const COLUMNS_CODE: string = `  export const columns: IColumn[] = [
     ...,
   ];`;
 
-  export const CONFIG_CODE: string = `  export const CONFIG: IConfig = {
+export const CONFIG_CODE: string = `  export const CONFIG: IConfig = {
     uniqueField: 'id',
     strip: true,
     hover: true,
-  };`
+  };`;
