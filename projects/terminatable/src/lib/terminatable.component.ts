@@ -55,21 +55,6 @@ export class TerminatableComponent implements AfterViewInit {
   @Input() set config(value: IConfig) {
     value = this.service.deepMerge(this._config, value);
     this._config = value;
-    this.trStyle = {
-      color: value.style.header.color.text,
-      'background-color': value.style.header.color.background,
-      'line-height': `${value.style.header.lineHeight}px`,
-    };
-    this.thStyle = {
-      left: value.multiSelect ? '3.25rem' : 0,
-      'font-size': value.style.header.font.size,
-      'font-weight': value.style.header.font.weight,
-    };
-    this.tdStyle = {
-      left: value.multiSelect ? '3.25rem' : 0,
-      'font-size': value.style.body.even.font.size,
-      'font-weight': value.style.body.even.font.weight,
-    };
   }
 
   _columns: IColumn[] = [];
