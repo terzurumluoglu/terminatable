@@ -74,6 +74,10 @@ html, body {
                     border: 2px solid #b8d4fe;
                     border-radius: 4px;
                     cursor: pointer;
+                    &:hover {
+                        background-color: #cadfff;
+                        border: 2px solid #91b2e3;
+                    }
                 }
             }
             @media (max-width: 720px) {
