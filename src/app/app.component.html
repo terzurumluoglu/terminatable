@@ -13,22 +13,33 @@
     </div>
     <div class="content">
 
-        <div>
-            <app-basic></app-basic>
-        </div>
-        <div>
-            <app-frozen></app-frozen>
-        </div>
-        <div>
-            <app-strip></app-strip>
-        </div>
-        <div>
-            <app-hover></app-hover>
-        </div>
-        <div>
-            <app-row-selection></app-row-selection>
-        </div>
+        <aside>
+            <ul>
+                <li (click)="scrollTo('basic')">Basic</li>
+                <li (click)="scrollTo('frozen')">Frozen Column</li>
+                <li (click)="scrollTo('strip')">Strip Row</li>
+                <li (click)="scrollTo('hover')">Hover Row</li>
+                <li (click)="scrollTo('row-selection')">Row Selection</li>
+            </ul>
+        </aside>
 
+        <main>
+            <div>
+                <app-basic></app-basic>
+            </div>
+            <div>
+                <app-frozen></app-frozen>
+            </div>
+            <div>
+                <app-strip></app-strip>
+            </div>
+            <div>
+                <app-hover></app-hover>
+            </div>
+            <div>
+                <app-row-selection></app-row-selection>
+            </div>
+        </main>
 
     </div>
 </div>
