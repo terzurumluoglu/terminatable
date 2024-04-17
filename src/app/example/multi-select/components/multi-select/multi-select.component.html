@@ -4,7 +4,7 @@
         <div id="tab">
             <ul>
                 <li
-                    *ngFor="let tab of tabs | tabs:'row-selection'"
+                    *ngFor="let tab of tabs | tabs:'multi-select'"
                     [class]="selectedTab === tab.id ? 'selected': ''"
                     (click)="selectedTab = tab.id">
                     <span>{{tab.title}}</span>
