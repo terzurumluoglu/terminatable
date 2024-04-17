@@ -7,7 +7,7 @@ import { IUser } from '../../../../models/IUser';
 import { CONFIG } from '../../constants';
 import { TABS } from '../../../../mock/tabs';
 import { ITab, Tab } from '../../../../models/ITab';
-import { COLUMNS_CODE, CONFIG_CODE, EVENT_CODE, HTML_CODE, USER_CODE } from '../../codes';
+import { COLUMNS_CODE, CONFIG_CODE, HTML_CODE, USER_CODE } from '../../codes';
 import { CommonModule } from '@angular/common';
 import { TabsPipe } from '../../../../pipes';
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
