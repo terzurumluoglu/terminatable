@@ -1,8 +1,10 @@
 # Terminatable
 
+Your Angular version should be 17+
+
 ## !!! It is not stable yet
 
-Terminatable is being developed who use table in their app and customize that.
+Terminatable is being developed who use HTML tables in their app and customize that in Angular 17 and above.
 
 ### Example
 
