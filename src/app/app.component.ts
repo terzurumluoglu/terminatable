@@ -13,6 +13,7 @@ import { RowSelectionComponent } from './example/row-selection/components';
 import { ColorCustomizeComponent } from './example/color-customize/components';
 import { MultiSelectComponent } from './example/multi-select/components';
 import { DragDropComponent } from './example/drag-drop/components';
+import { PaginationComponent } from './example/pagination/components';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +34,7 @@ import { DragDropComponent } from './example/drag-drop/components';
     ColorCustomizeComponent,
     MultiSelectComponent,
     DragDropComponent,
+    PaginationComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
