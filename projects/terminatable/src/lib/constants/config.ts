@@ -1,4 +1,4 @@
-import { IConfig } from "../models";
+import { IConfig } from '../models';
 
 export const CONFIG: IConfig = {
   uniqueField: 'id',
@@ -66,7 +66,6 @@ export const CONFIG: IConfig = {
           size: 16,
           weight: 'normal',
         },
-        
       }
     },
   },

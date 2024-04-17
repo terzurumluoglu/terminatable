@@ -25,6 +25,15 @@ export class HoverHighlightDirective {
     private styleService: StyleService
   ) {}
 
+  fillColor = (document: Element, color: {background: string, text: string}) => {
+    const { background, text } = color;
+    const docs: Element[] = Array.from(document.children);
+    docs.forEach(doc => {
+      this.renderer.setStyle(doc, 'background-color', background);
+      this.renderer.setStyle(doc, 'color', text);
+    })
+  }
+
   @HostListener('mouseenter') onMouseEnter() {
     if (!this.libHoverHighlight.config.hover) {
       return;
@@ -41,16 +50,7 @@ export class HoverHighlightDirective {
       },
     } = this.libHoverHighlight;
 
-    this.renderer.setStyle(
-      this.el.nativeElement,
-      'background-color',
-      background
-    );
-    this.renderer.setStyle(
-      this.el.nativeElement,
-      'color',
-      text
-    );
+    this.fillColor(this.el.nativeElement, { background, text });
   }
 
   @HostListener('mouseleave') onMouseLeave() {
@@ -63,7 +63,6 @@ export class HoverHighlightDirective {
       index,
       selected
     );
-    this.renderer.setStyle(this.el.nativeElement, 'background-color', background);
-    this.renderer.setStyle(this.el.nativeElement, 'color', text);
+    this.fillColor(this.el.nativeElement, { background, text });
   }
 }

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   Component,
   ContentChild,
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   QueryList,
   TemplateRef,
@@ -40,7 +40,7 @@ import { PaginationPipe } from './pipes';
   styleUrl: './terminatable.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class TerminatableComponent implements AfterViewInit {
+export class TerminatableComponent implements OnInit {
   @ViewChildren('columnDragbox') columnDragboxes: QueryList<ElementRef>;
   @ViewChildren('rowDragbox') rowDragboxes: QueryList<ElementRef>;
   @ViewChild('selectAll') selectAll: CheckboxComponent;
@@ -86,7 +86,7 @@ export class TerminatableComponent implements AfterViewInit {
 
   constructor(private readonly service: TerminatableService) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     const val: number = [this.caption, this.footer].filter((a) => !!a).length;
     this._tableContainerHeight =
       this.service.calculateTableContainerHeight(val);
@@ -154,10 +154,10 @@ export class TerminatableComponent implements AfterViewInit {
   }
 
   isSelectedRow = (row: any) => {
-    return !!this.selectedRow
-      ? row[this._config.uniqueField] ===
-          this.selectedRow[this._config.uniqueField]
-      : false;
+    if (!this.selectedRow) {
+      return false;
+    }
+    return row[this._config.uniqueField] === this.selectedRow[this._config.uniqueField];
   };
 
   //#region STYLE
