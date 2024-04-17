@@ -34,21 +34,24 @@
                 </ng-template>
 
                 <ng-template #noTbodyContent>
-                    <tr *ngFor="let row of _data | pagination:paginationEvent; let i = index" (click)="selectRow(row)"
+                    <tr *ngFor="let row of _data | pagination:paginationEvent; let i = index"
+                        #rowDragbox
+                        (click)="selectRow(row)"
                         [style.lineHeight.px]="_config.style.body.lineHeight"
-                        [style.backgroundColor]="backgroundColor({index: i, row})"
-                        [style.color]="textColor({index: i, row})"
-                        [libHoverHighlight]="hoverHighlightInput(row, i)" #rowDragbox
+                        [libHoverHighlight]="hoverHighlightInput(row, i)"
                         [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
                         (dragover)="rowDragOver($event, i)" (drop)="rowDrop(i)">
-                        <td *ngIf="_config.multiSelect" class="freeze">
+                        <td *ngIf="_config.multiSelect" class="freeze" 
+                        [style.backgroundColor]="backgroundColor({index: i, row})">
                             <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
                         </td>
                         <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
                             [style.left]="_config.multiSelect ? '3.25rem' : 0"
                             [style.fontSize.px]="_config.style.body.even.font.size"
                             [style.fontWeight]="_config.style.body.even.font.weight"
-                            [style.minWidth.px]="column.width" >
+                            [style.minWidth.px]="column.width"
+                            [style.color]="textColor({index: i, row})"
+                            [style.backgroundColor]="backgroundColor({index: i, row})">
                             <span>
                                 {{row[column.field]}}
                             </span>
