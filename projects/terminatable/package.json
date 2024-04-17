@@ -1,6 +1,7 @@
 {
   "name": "terminatable",
-  "version": "0.1.7",
+  "description": "Terminatable is being developed who use HTML tables in their app and customize that in Angular 17 and above.",
+  "version": "0.1.9",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0"
@@ -8,5 +9,18 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "angular",
+    "angular17",
+    "table",
+    "datatable",
+    "standalone"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/terzurumluoglu/terminatable.git"
+  },
+  "author": "Toprak ERZURUMLUOĞLU <toprakerzurumluoglu@gmail.com>",
+  "homepage": "https://github.com/terzurumluoglu/terminatable/blob/main/projects/terminatable/README.md"
 }
