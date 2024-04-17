@@ -12,10 +12,10 @@ import { CommonModule } from '@angular/common';
 import { TabsPipe } from '../../../../pipes';
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
-import { IRowSelection } from '../../../../../../dist/terminatable/public-api';
+import { IDragAngDrop } from '../../../../../../projects/terminatable/src/lib/models/IDragDrop';
 
 @Component({
-  selector: 'app-color-customize',
+  selector: 'app-drag-drop',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,10 +24,10 @@ import { IRowSelection } from '../../../../../../dist/terminatable/public-api';
     Highlight,
     HighlightAuto,
     HighlightLineNumbers,],
-  templateUrl: './color-customize.component.html',
-  styleUrl: './color-customize.component.scss',
+  templateUrl: './drag-drop.component.html',
+  styleUrl: './drag-drop.component.scss',
 })
-export class ColorCustomizeComponent {
+export class DragDropComponent {
   tabs: ITab[] = TABS;
   selectedTab: Tab = 'preview';
 
@@ -50,7 +50,10 @@ export class ColorCustomizeComponent {
     this.data = USERS;
   };
 
-  onRowSelect = (event: IRowSelection) => {
+  onRowDrop = (event: IDragAngDrop) => {
+    console.log(event);
+  }
+  onColumnDrop = (event: IDragAngDrop) => {
     console.log(event);
   }
 }

@@ -4,7 +4,7 @@
         <div id="tab">
             <ul>
                 <li
-                    *ngFor="let tab of tabs | tabs:'hover'"
+                    *ngFor="let tab of tabs | tabs:'color-customize'"
                     [class]="selectedTab === tab.id ? 'selected': ''"
                     (click)="selectedTab = tab.id">
                     <span>{{tab.title}}</span>
@@ -13,7 +13,12 @@
         </div>
         <div id="content">
             <div id="{{selectedTab}}" *ngIf="selectedTab === 'preview'">
-                <terminatable [config]="config" [columns]="columns" [data]="data"></terminatable>
+                <terminatable
+                    [config]="config"
+                    [columns]="columns"
+                    [data]="data"
+                    (onRowSelect)="onRowSelect($event)"
+                ></terminatable>
             </div>
             <div *ngIf="selectedTab === 'columns'">
                 <pre><code [highlight]="columnsCode" language="typescript" lineNumbers></code></pre>
@@ -26,6 +31,9 @@
             </div>
             <div *ngIf="selectedTab === 'data'">
                 <pre><code [highlight]="dataCode" language="typescript" lineNumbers></code></pre>
+            </div>
+            <div *ngIf="selectedTab === 'event'">
+                <pre><code [highlight]="eventCode" language="typescript" lineNumbers></code></pre>
             </div>
         </div>
     </div>

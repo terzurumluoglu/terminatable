@@ -1,10 +1,10 @@
-<div id="multi-select">
-    <p class="title">Multi Select</p>
+<div id="drag-drop">
+    <p class="title">Drag Drop Column And Row</p>
     <div id="tabs">
         <div id="tab">
             <ul>
                 <li
-                    *ngFor="let tab of tabs | tabs:'multi-select'"
+                    *ngFor="let tab of tabs | tabs:'drag-drop'"
                     [class]="selectedTab === tab.id ? 'selected': ''"
                     (click)="selectedTab = tab.id">
                     <span>{{tab.title}}</span>
@@ -14,10 +14,11 @@
         <div id="content">
             <div id="{{selectedTab}}" *ngIf="selectedTab === 'preview'">
                 <terminatable
-                [config]="config"
-                [columns]="columns"
-                [data]="data"
-                (onChange)="onChange($event)"
+                    [config]="config"
+                    [columns]="columns"
+                    [data]="data"
+                    (onRowDrop)="onRowDrop($event)"
+                    (onColumnDrop)="onColumnDrop($event)"
                 ></terminatable>
             </div>
             <div *ngIf="selectedTab === 'columns'">

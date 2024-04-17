@@ -308,7 +308,7 @@ export class TerminatableComponent implements OnInit {
       oldValue: tempData,
       newValue: this._data,
     };
-    this.onColumnDrop.emit(dragDropResult);
+    this.onRowDrop.emit(dragDropResult);
   }
 
   //#endregion
