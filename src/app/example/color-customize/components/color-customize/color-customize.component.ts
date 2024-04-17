@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { COLUMNS } from '../../constants/columns';
-import { IColumn, IConfig, TerminatableComponent } from '../../../../../../projects/terminatable/src/public-api';
+import { IColumn, IConfig, IRowSelection, TerminatableComponent } from '../../../../../../projects/terminatable/src/public-api';
 import { USERS } from '../../../../mock';
 import { IUser } from '../../../../models/IUser';
 import { CONFIG } from '../../constants';
@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { TabsPipe } from '../../../../pipes';
 import { Highlight, HighlightAuto } from 'ngx-highlightjs';
 import { HighlightLineNumbers } from 'ngx-highlightjs/line-numbers';
-import { IRowSelection } from '../../../../../../dist/terminatable/public-api';
 
 @Component({
   selector: 'app-color-customize',
