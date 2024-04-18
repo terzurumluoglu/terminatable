@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+
+#terminatable {
+    position: relative;
+    height: 100%;
+    // padding: 1rem;
+
+    .table-caption,
+    .table-footer {
+        height: 50px;
+        padding: 1rem;
+        background-color: #FFF;
+    }
+
+    .table-caption {
+        border-bottom: 1px solid #d2d2d2;
+    }
+
+    .table-footer {
+        border-top: 1px solid #d2d2d2;
+    }
+
+    .table-container {
+        // height: calc(100% - 100px);
+        position: relative;
+        overflow: auto;
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            .move {
+                opacity: 0.4;
+            }
+
+            // padding-right: 0.5rem;
+            thead {
+                position: sticky;
+                border-spacing: 0;
+                top: 0;
+                z-index: 2;
+
+                tr {
+                    th {
+                        text-align: left;
+                        padding: 1rem 1rem;
+                        font-weight: 700;
+                        // color: #374151;
+                        background: inherit;
+
+                        &.freeze {
+                            position: sticky;
+                            left: 0;
+                            z-index: 1;
+                        }
+                    }
+
+                    §.checkbox {
+                        position: sticky;
+                        left: 0;
+                        z-index: 1;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    background: transparent;
+                    color: #4b5563;
+                    transition: box-shadow 0.2s;
+                    // background-color: #000;
+
+                    td {
+                        text-align: left;
+                        background: inherit;
+                        // border: 1px solid #e5e7eb;
+                        // border-width: 0 0 1px 0;
+                        padding: 1rem 1rem;
+                        // background-color: #FFF;
+
+                        // border-top: 4px solid white;
+                        // border-bottom: 5px solid white;
+                        height: 52px;
+                        &.freeze {
+                            position: sticky;
+                            left: 0;
+                            z-index: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
