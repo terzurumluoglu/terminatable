@@ -1,0 +1,11 @@
+<div id="pagination">
+    <ul>
+        <li *ngIf="showPrevious()" class="previous" (click)="selectPage(selectedPage - 1)"></li>
+        <li *ngFor="let page of pages | pages:selectedPage" (click)="selectPage(page)"
+        [style.color]="selectedPage === page ? config.style.body.odd.color.background : '#000'"
+        [style.backgroundColor]="selectedPage === page ? config.style.body.selected.color.background : config.style.body.even.color.background">
+            <span>{{page}}</span>
+        </li>
+        <li *ngIf="showNext()" class="next" (click)="selectPage(selectedPage + 1)"></li>
+    </ul>
+</div>
