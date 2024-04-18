@@ -2,7 +2,7 @@
 
 Your Angular version should be 17+
 
-## !!! It is not stable yet
+## !!! Development is going on
 
 Terminatable is being developed who use HTML tables in their app and customize that in Angular 17 and above.
 
