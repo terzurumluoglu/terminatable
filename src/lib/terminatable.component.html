@@ -3,23 +3,18 @@
         <ng-container [ngTemplateOutlet]="caption"></ng-container>
     </div>
     <div class="table-container" [style.height]="_tableContainerHeight">
-        <table>
+        <table [class]=cssClass>
             <thead>
-                <tr [style.color]="_config.style.header.color.text" [style.backgroundColor]="_config.style.header.color.background" [style.lineHeight.px]="_config.style.header.lineHeight">
-                    <th *ngIf="_config.multiSelect" class="freeze">
+                <tr>
+                    <th *ngIf="multiSelection" class="freeze">
                         <lib-checkbox #selectAll [value]="undefined"
                             (onChangeAllEmitter)="onChangeAll($event)"></lib-checkbox>
                     </th>
-                    <th *ngFor="let column of _columns; let i = index"
-                        #columnDragbox
-                        [draggable]="column.isFrozen ? false : _config.orderable.column"
+                    <th *ngFor="let column of _columns; let i = index" #columnDragbox
+                        [draggable]="column.isFrozen ? false : [orderTypes.columns, orderTypes.both].includes(orderable)"
                         (dragstart)="columnDragStart(i)" (dragover)="columnDragOver($event, i)" (drop)="columnDrop(i)"
-                        scope="col"
-                        [class]="column.isFrozen ? 'freeze' : ''"
-                        [style.left]="_config.multiSelect ? '3.25rem' : 0"
-                        [style.lineHeight.px]="_config.style.header.lineHeight"
-                        [style.backgroundColor]="_config.style.header.color.background"
-                        [style.cursor]="!!_config.orderable?.column && !column.isFrozen ? 'move' : ''"
+                        scope="col" [class]="column.isFrozen ? 'freeze' : ''" [style.left]="multiSelection ? '3.25rem' : 0"
+                        [style.cursor]="[orderTypes.columns, orderTypes.both].includes(orderable) && !column.isFrozen ? 'move' : ''"
                         [style.minWidth.px]="column.width">
                         <span>
                             {{column.title}}
@@ -27,31 +22,22 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody [ngClass]="[strip ? 'strip' : '', hoverable ? 'hoverable' : '', rowSelection ? 'selectable': '']">
                 <div *ngIf="tbody;then tbodyContent else noTbodyContent"></div>
                 <ng-template #tbodyContent>
                     <ng-container [ngTemplateOutlet]="tbody"></ng-container>
                 </ng-template>
 
                 <ng-template #noTbodyContent>
-                    <tr *ngFor="let row of _data | pagination:paginationEvent; let i = index"
-                        #rowDragbox
-                        (click)="selectRow(row)"
-                        [style.lineHeight.px]="_config.style.body.lineHeight"
-                        [libHoverHighlight]="hoverHighlightInput(row, i)"
-                        [draggable]="_config.orderable.row" (dragstart)="rowDragStart(i)"
-                        (dragover)="rowDragOver($event, i)" (drop)="rowDrop(i)">
-                        <td *ngIf="_config.multiSelect" class="freeze" 
-                        [style.backgroundColor]="backgroundColor({index: i, row})">
+                    <tr *ngFor="let row of _data | pagination:paginationEvent; let i = index" #rowDragbox
+                        (click)="selectRow(row)" [draggable]="[orderTypes.rows, orderTypes.both].includes(orderable)"
+                        (dragstart)="rowDragStart(i)" (dragover)="rowDragOver($event, i)" (drop)="rowDrop(i)"
+                        [class]="(!!selectedRow && selectedRow[uniqueField] === row[uniqueField]) ? 'selected': ''">
+                        <td *ngIf="multiSelection" class="freeze">
                             <lib-checkbox [value]="row" (onChangeEmitter)="onChangeOne($event)"></lib-checkbox>
                         </td>
                         <td *ngFor="let column of _columns" [class]="column.isFrozen ? 'freeze' : ''"
-                            [style.left]="_config.multiSelect ? '3.25rem' : 0"
-                            [style.fontSize.px]="_config.style.body.even.font.size"
-                            [style.fontWeight]="_config.style.body.even.font.weight"
-                            [style.minWidth.px]="column.width"
-                            [style.color]="textColor({index: i, row})"
-                            [style.backgroundColor]="backgroundColor({index: i, row})">
+                            [style.left]="multiSelection ? '3.25rem' : 0" [style.minWidth.px]="column.width">
                             <span>
                                 {{row[column.field]}}
                             </span>
@@ -62,11 +48,11 @@
         </table>
     </div>
 
-    <div class="table-footer" *ngIf="!!footer || !!_config.pagination">
-        <div *ngIf="!!_config.pagination;then paginationTemplate else footerTemplate"></div>
+    <div class="table-footer" *ngIf="!!footer || !!pageable || !!rowSize">
+        <div *ngIf="(!!pageable && !!rowSize);then paginationTemplate else footerTemplate"></div>
         <ng-template #paginationTemplate>
-            <lib-pagination #pagination *ngIf="!!_config.pagination" [config]="_config" [data]="_data"
-                [limit]="_config.pagination.rows" (onSelectedPage)="onSelectedPage($event)"></lib-pagination>
+            <lib-pagination #pagination *ngIf="!!pageable" [data]="_data"
+                [limit]="rowSize" (onSelectedPage)="onSelectedPage($event)"></lib-pagination>
         </ng-template>
         <ng-template #footerTemplate>
             <ng-container [ngTemplateOutlet]="footer"></ng-container>

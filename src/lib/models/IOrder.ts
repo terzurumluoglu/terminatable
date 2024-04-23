@@ -1,4 +1,4 @@
-export interface IOrder {
-  column?: boolean;
-  row?: boolean;
-}
+// export interface IOrder {
+//   column?: boolean;
+//   row?: boolean;
+// }

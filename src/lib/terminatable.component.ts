@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule } from "@angular/common";
 import {
   Component,
   ContentChild,
@@ -12,60 +12,64 @@ import {
   ViewChild,
   ViewChildren,
   ViewEncapsulation,
-} from '@angular/core';
-import { CheckboxComponent } from './checkbox/components';
-import { HoverHighlightDirective } from './directives';
-import { SafeStyle } from '@angular/platform-browser';
-import { IColumn, IConfig, IRowSelection } from './models';
-import { TerminatableService } from './terminatable.service';
-import { ICheckboxModel } from './checkbox/models';
-import { CONFIG } from './constants/config';
-import { IColumnStyle, IRowStyle } from './models/IStyle';
-import { IDragAngDrop } from './models/IDragDrop';
-import { PaginationComponent } from './pagination/components';
-import { IPagination } from './pagination/models';
-import { PaginationPipe } from './pipes';
+} from "@angular/core";
+import { CheckboxComponent } from "./checkbox/components";
+import { SafeStyle } from "@angular/platform-browser";
+import { IColumn, IRowSelection } from "./models";
+import { TerminatableService } from "./terminatable.service";
+import { ICheckboxModel } from "./checkbox/models";
+import { IColumnStyle, IRowStyle } from "./models/IStyle";
+import { IDragAngDrop } from "./models/IDragDrop";
+import { PaginationComponent } from "./pagination/components";
+import { IPagination } from "./pagination/models";
+import { PaginationPipe } from "./pipes";
+import { OrderTypes } from "./models/orderable.type";
+import { ORDER_TYPES } from "./constants/order.type";
 
 @Component({
-  selector: 'terminatable',
+  selector: "terminatable",
   standalone: true,
   imports: [
     CommonModule,
     CheckboxComponent,
     PaginationComponent,
-    HoverHighlightDirective,
     PaginationPipe,
   ],
-  templateUrl: './terminatable.component.html',
-  styleUrl: './terminatable.component.scss',
+  templateUrl: "./terminatable.component.html",
+  styleUrl: "./terminatable.component.scss",
   encapsulation: ViewEncapsulation.None,
 })
 export class TerminatableComponent implements OnInit {
-  @ViewChildren('columnDragbox') columnDragboxes: QueryList<ElementRef>;
-  @ViewChildren('rowDragbox') rowDragboxes: QueryList<ElementRef>;
-  @ViewChild('selectAll') selectAll: CheckboxComponent;
-  @ContentChild('caption') caption: TemplateRef<any>;
-  @ContentChild('footer') footer: TemplateRef<any>;
-  @ContentChild('tbody') tbody: TemplateRef<any>;
+  @ViewChildren("columnDragbox") columnDragboxes: QueryList<ElementRef>;
+  @ViewChildren("rowDragbox") rowDragboxes: QueryList<ElementRef>;
+  @ViewChild("selectAll") selectAll: CheckboxComponent;
+  @ContentChild("caption") caption: TemplateRef<any>;
+  @ContentChild("footer") footer: TemplateRef<any>;
+  @ContentChild("tbody") tbody: TemplateRef<any>;
 
   _tableContainerHeight: SafeStyle =
-    this.service.bypassSecurityTrustStyle('calc(100%)');
+    this.service.bypassSecurityTrustStyle("calc(100%)");
 
-  _config: IConfig = structuredClone(CONFIG);
-  @Input() set config(value: IConfig) {
-    value = this.service.deepMerge(this._config, value);
-    this._config = value;
-  }
+  @Input() hoverable: boolean = false;
+  @Input() multiSelection: boolean = false;
+  @Input() pageable: boolean = false;
+  @Input() rowSize: number = 0;
+  @Input() orderable: OrderTypes = 'none';
+  @Input() rowSelection: boolean = false;
+  @Input() strip: boolean = false;
+  @Input() uniqueField: string;
 
   _columns: IColumn[] = [];
   @Input() set columns(value: any[]) {
     this._columns = value;
   }
 
+  @Input() cssClass: string;
+
   _data: any[] = [];
   @Input() set data(value: any[]) {
     this._data = value;
-    this._config.multiSelect && this.generateCheckboxData();
+    this.multiSelection && this.generateCheckboxData();
   }
 
   @Output() onChange: EventEmitter<any[]> = new EventEmitter<any[]>();
@@ -84,6 +88,8 @@ export class TerminatableComponent implements OnInit {
 
   paginationEvent: IPagination = {};
 
+  orderTypes = ORDER_TYPES;
+
   constructor(private readonly service: TerminatableService) {}
 
   ngOnInit(): void {
@@ -93,7 +99,7 @@ export class TerminatableComponent implements OnInit {
   }
 
   selectRow = (row: any) => {
-    if (!this._config.rowSelection) {
+    if (!this.rowSelection) {
       return;
     }
     this.selectedRow = this.isSelectedRow(row) ? undefined : row;
@@ -134,7 +140,7 @@ export class TerminatableComponent implements OnInit {
   };
 
   onChangeAll(event: boolean) {
-    if (!this._config.multiSelect) {
+    if (!this.multiSelection) {
       return;
     }
     this._data.forEach((item) => (item.checked = event));
@@ -142,7 +148,7 @@ export class TerminatableComponent implements OnInit {
   }
 
   onChangeOne(checkBoxModel: ICheckboxModel) {
-    if (!this._config.multiSelect) {
+    if (!this.multiSelection) {
       return;
     }
     if (checkBoxModel.checked) {
@@ -157,46 +163,49 @@ export class TerminatableComponent implements OnInit {
     if (!this.selectedRow) {
       return false;
     }
-    return row[this._config.uniqueField] === this.selectedRow[this._config.uniqueField];
+    return (
+      row[this.uniqueField] ===
+      this.selectedRow[this.uniqueField]
+    );
   };
 
   //#region STYLE
 
-  textColor(obj: { index?: number; row?: any; }): string {
-    const { index, row } = obj;
-    const isSelected: boolean = this.isSelectedRow(row);
-    return this.service.color(this._config, index, isSelected).text;
-  }
+  // textColor(obj: { index?: number; row?: any; }): string {
+  //   const { index, row } = obj;
+  //   const isSelected: boolean = this.isSelectedRow(row);
+  //   return this.service.color(this._config, index, isSelected).text;
+  // }
 
-  hoverHighlightInput = (row: any, index: number) => {
-    const selected: boolean = this.isSelectedRow(row);
-    return { config: this._config, index, selected };
-  };
+  // hoverHighlightInput = (row: any, index: number) => {
+  //   const selected: boolean = this.isSelectedRow(row);
+  //   return { config: this._config, index, selected };
+  // };
 
-  backgroundColor = (obj: { index?: number; row?: any; }) => {
-    const { index, row } = obj;
-    const isSelected: boolean = this.isSelectedRow(row);
-    return this.service.color(this._config, index, isSelected).background;
-  };
+  // backgroundColor = (obj: { index?: number; row?: any; }) => {
+  //   const { index, row } = obj;
+  //   const isSelected: boolean = this.isSelectedRow(row);
+  //   return this.service.color(this._config, index, isSelected).background;
+  // };
 
   //#endregion
 
   //#region COLUMN - DRAG AND DROP
 
   setMoveClass = (element: ElementRef) => {
-    element.nativeElement.classList.add('move');
+    element.nativeElement.classList.add("move");
   };
 
   removeMoveClass = (element: ElementRef) => {
-    element.nativeElement.classList.remove('move');
+    element.nativeElement.classList.remove("move");
   };
 
   getActiveDragbox = (
     index: number,
-    direction: 'row' | 'column'
+    direction: "row" | "column"
   ): ElementRef => {
     const drogboxes: QueryList<ElementRef> =
-      direction === 'row' ? this.rowDragboxes : this.columnDragboxes;
+      direction === "row" ? this.rowDragboxes : this.columnDragboxes;
     return drogboxes.find((_: ElementRef, i) => i === index);
   };
 
@@ -204,7 +213,7 @@ export class TerminatableComponent implements OnInit {
 
   columnDragStart(index: number) {
     this.columnSourceIndex = index;
-    const dragbox: ElementRef = this.getActiveDragbox(index, 'column');
+    const dragbox: ElementRef = this.getActiveDragbox(index, "column");
     this.setMoveClass(dragbox);
   }
 
@@ -213,7 +222,7 @@ export class TerminatableComponent implements OnInit {
       return;
     }
     [...Array(this.columnDragboxes.length).keys()].forEach((i) => {
-      const dragbox: ElementRef = this.getActiveDragbox(i, 'column');
+      const dragbox: ElementRef = this.getActiveDragbox(i, "column");
       if ([index, this.columnSourceIndex].includes(i)) {
         this.setMoveClass(dragbox);
       } else {
@@ -225,8 +234,8 @@ export class TerminatableComponent implements OnInit {
 
   columnDrop(index: number) {
     [
-      this.getActiveDragbox(index, 'column'),
-      this.getActiveDragbox(this.columnSourceIndex, 'column'),
+      this.getActiveDragbox(index, "column"),
+      this.getActiveDragbox(this.columnSourceIndex, "column"),
     ].forEach((dragbox) => {
       this.removeMoveClass(dragbox);
     });
@@ -254,7 +263,7 @@ export class TerminatableComponent implements OnInit {
     if (
       [index, this.columnSourceIndex].some((i) => this._columns[i].isFrozen)
     ) {
-      console.log('FROZEN COLUMN CANNOT MOVE');
+      console.log("FROZEN COLUMN CANNOT MOVE");
       return false;
     }
     return true;
@@ -268,7 +277,7 @@ export class TerminatableComponent implements OnInit {
 
   rowDragStart(index: number) {
     this.rowSourceIndex = index;
-    const dragbox: ElementRef = this.getActiveDragbox(index, 'row');
+    const dragbox: ElementRef = this.getActiveDragbox(index, "row");
     this.setMoveClass(dragbox);
   }
 
@@ -277,7 +286,7 @@ export class TerminatableComponent implements OnInit {
       return;
     }
     [...Array(this.rowDragboxes.length).keys()].forEach((i) => {
-      const dragbox: ElementRef = this.getActiveDragbox(i, 'row');
+      const dragbox: ElementRef = this.getActiveDragbox(i, "row");
       if ([index, this.rowSourceIndex].includes(i)) {
         this.setMoveClass(dragbox);
       } else {
@@ -289,8 +298,8 @@ export class TerminatableComponent implements OnInit {
 
   rowDrop(index: number) {
     [
-      this.getActiveDragbox(index, 'row'),
-      this.getActiveDragbox(this.rowSourceIndex, 'row'),
+      this.getActiveDragbox(index, "row"),
+      this.getActiveDragbox(this.rowSourceIndex, "row"),
     ].forEach((dragbox) => {
       this.removeMoveClass(dragbox);
     });
@@ -315,7 +324,7 @@ export class TerminatableComponent implements OnInit {
 
   //#region PAGINATION
   onSelectedPage = (event: IPagination) => {
-    if (!this._config.pagination) {
+    if (!this.pageable) {
       return;
     }
     this.paginationEvent = { ...event };

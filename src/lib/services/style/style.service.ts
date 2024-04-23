@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { SanitizerService } from '../sanitizer/sanitizer.service';
-import { IConfig } from '../../models';
-import { IBody, IColor, IColorFont } from '../../models/IStyle';
 
 @Injectable({
   providedIn: 'root',
@@ -15,9 +13,9 @@ export class StyleService {
     return this.sanitizer.bypassSecurityTrustStyle(str);
   };
 
-  color = (config: IConfig, index: number, isSelected: boolean): IColor => {
-    const key: string = isSelected ? 'selected' : (config.strip && index % 2 === 0 ? 'even' : 'odd');
-    const body: IBody = config.style.body;
-    return (body[key as keyof typeof body] as IColorFont).color;
-  };
+  // color = (config: IConfig, index: number, isSelected: boolean): IColor => {
+  //   const key: string = isSelected ? 'selected' : (config.strip && index % 2 === 0 ? 'even' : 'odd');
+  //   const body: IBody = config.style.body;
+  //   return (body[key as keyof typeof body] as IColorFont).color;
+  // };
 }
