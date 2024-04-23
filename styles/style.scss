@@ -17,7 +17,7 @@ html, body {
     .table-caption,
     .table-footer {
         height: 50px;
-        padding: 1rem;
+        padding: 0.5rem;
         background-color: #FFF;
     }
 
@@ -34,10 +34,16 @@ html, body {
         position: relative;
         overflow: auto;
 
+
         table {
             border-collapse: separate;
             border-spacing: 0;
             width: 100%;
+            tr{
+                line-height: 8px;
+                background-color: #FFFFFF;
+                color: #4b5563;
+            }
             .move {
                 opacity: 0.4;
             }
@@ -54,16 +60,15 @@ html, body {
                         text-align: left;
                         padding: 1rem 1rem;
                         font-weight: 700;
-                        // color: #374151;
+                        font-size: 16;
+                        font-weight: bold;
                         background: inherit;
-
                         &.freeze {
                             position: sticky;
                             left: 0;
                             z-index: 1;
                         }
                     }
-
                     §.checkbox {
                         position: sticky;
                         left: 0;
@@ -73,22 +78,30 @@ html, body {
             }
 
             tbody {
+                &.strip {
+                    tr {
+                        &:nth-child(odd) {
+                            background-color: #E4E4E4;
+                        }
+                    }
+                }
+                &.hoverable {
+                    tr:hover{
+                        background-color: #C5DBFF;
+                        color: #4b5563;
+                    }
+                }
+                &.selectable {
+                    tr.selected {
+                        background-color: #6aa3ff;
+                    }
+                }
                 tr {
-                    background: transparent;
-                    color: #4b5563;
                     transition: box-shadow 0.2s;
-                    // background-color: #000;
-
                     td {
                         text-align: left;
                         background: inherit;
-                        // border: 1px solid #e5e7eb;
-                        // border-width: 0 0 1px 0;
                         padding: 1rem 1rem;
-                        // background-color: #FFF;
-
-                        // border-top: 4px solid white;
-                        // border-bottom: 5px solid white;
                         height: 52px;
                         &.freeze {
                             position: sticky;

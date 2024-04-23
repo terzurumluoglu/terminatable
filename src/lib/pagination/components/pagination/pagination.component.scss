@@ -19,6 +19,12 @@
             justify-content: center;
             gap: 1rem;
             cursor: pointer;
+            background-color: #E4E4E4;
+            color: #000;
+            &.active {
+                color: #E4E4E4;
+                background-color: #6aa3ff;
+            }
             &:hover {
                 text-decoration: underline;
             }

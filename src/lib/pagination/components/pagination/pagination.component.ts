@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IPagination } from '../../models/pagination';
-import { HoverHighlightDirective } from '../../../directives';
-import { IConfig } from '../../../models';
 import { PagesPipe } from '../../pipes';
 
 @Component({
   selector: 'lib-pagination',
   standalone: true,
-  imports: [CommonModule, HoverHighlightDirective, PagesPipe],
+  imports: [CommonModule, PagesPipe],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.scss',
 })
@@ -16,8 +14,6 @@ export class PaginationComponent {
   pages: number[] = [];
   selectedPage: number = 1;
   pagination: IPagination = {};
-
-  @Input() config: IConfig;
 
   _data: any[];
   @Input() set data(value: any[]) {
