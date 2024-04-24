@@ -6,10 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "module": "CommonJS",
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "types": [],
   },
   "exclude": [
     "**/*.spec.ts"
