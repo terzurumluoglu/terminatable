@@ -1,4 +1,4 @@
-<div id="terminatable" [attr.version]="version">
+<div id="terminatable">
     <div class="table-caption" *ngIf="caption">
         <ng-container [ngTemplateOutlet]="caption"></ng-container>
     </div>
@@ -25,7 +25,7 @@
             <tbody [ngClass]="[strip ? 'strip' : '', hoverable ? 'hoverable' : '', rowSelection ? 'selectable': '']">
                 <div *ngIf="tbody;then tbodyContent else noTbodyContent"></div>
                 <ng-template #tbodyContent>
-                    <ng-container [ngTemplateOutlet]="tbody"></ng-container>
+                    <ng-container [ngTemplateOutlet]="tbody" [ngTemplateOutletContext]="{row, index}" *ngFor="let row of _data; let index = index"></ng-container>
                 </ng-template>
 
                 <ng-template #noTbodyContent>
