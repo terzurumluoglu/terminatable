@@ -1,7 +1,7 @@
 {
   "name": "terminatable",
   "description": "Terminatable is being developed who use HTML tables in their app and customize that in Angular 17 and above.",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0"
