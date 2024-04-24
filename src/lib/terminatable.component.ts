@@ -90,16 +90,12 @@ export class TerminatableComponent implements OnInit {
 
   orderTypes = ORDER_TYPES;
 
-  version: string;
-
   constructor(private readonly service: TerminatableService) {}
 
   ngOnInit(): void {
     const val: number = [this.caption, this.footer].filter((a) => !!a).length;
     this._tableContainerHeight =
       this.service.calculateTableContainerHeight(val);
-
-      this.version = this.service.version;
   }
 
   selectRow = (row: any) => {
