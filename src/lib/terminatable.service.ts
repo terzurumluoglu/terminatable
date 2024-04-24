@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SanitizerService, StyleService, UtilsService } from './services';
+import { SanitizerService, StyleService } from './services';
+declare const require: (path: string) => any;
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +9,12 @@ export class TerminatableService {
   constructor(
     private readonly sanitizerService: SanitizerService,
     private readonly styleService: StyleService,
-    private readonly utils: UtilsService,
   ) {}
+
+  get version() {
+    const { version } = require("../../package.json");
+    return version;
+  }
 
   //#region Sanitizer Service
   bypassSecurityTrustStyle = (value: string) =>
