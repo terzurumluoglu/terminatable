@@ -12,8 +12,6 @@ How can I use terminatable in my app? [Visit](https://terminatable.onrender.com)
 
 ## Installation
 
-Use the package manager [npm](https://pip.pypa.io/en/stable/) to install foobar.
-
 Use the package manager npm to install Terminatable.
 
 ```bash
