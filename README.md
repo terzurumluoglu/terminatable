@@ -8,11 +8,9 @@ Terminatable is being developed who use HTML tables in their app and customize t
 
 ## DEMO
 
-How can I use in my app? [Visit](https://terminatable.onrender.com)
+How can I use terminatable in my app? [Visit](https://terminatable.onrender.com)
 
 ## Installation
-
-Use the package manager [npm](https://pip.pypa.io/en/stable/) to install foobar.
 
 Use the package manager npm to install Terminatable.
 
