@@ -8,7 +8,7 @@ Terminatable is being developed who use HTML tables in their app and customize t
 
 ## DEMO
 
-How can I use in my app? [Visit](https://terminatable.onrender.com)
+How can I use terminatable in my app? [Visit](https://terminatable.onrender.com)
 
 ## Installation
 
