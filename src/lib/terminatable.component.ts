@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
 import {
+  AfterViewInit,
   Component,
   ContentChild,
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   QueryList,
   TemplateRef,
@@ -39,7 +39,7 @@ import { ORDER_TYPES } from "./constants/order.type";
   styleUrl: "./terminatable.component.scss",
   encapsulation: ViewEncapsulation.None,
 })
-export class TerminatableComponent implements OnInit {
+export class TerminatableComponent implements AfterViewInit {
   @ViewChildren("columnDragbox") columnDragboxes: QueryList<ElementRef>;
   @ViewChildren("rowDragbox") rowDragboxes: QueryList<ElementRef>;
   @ViewChild("selectAll") selectAll: CheckboxComponent;
@@ -92,7 +92,7 @@ export class TerminatableComponent implements OnInit {
 
   constructor(private readonly service: TerminatableService) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const val: number = [this.caption, this.footer].filter((a) => !!a).length;
     this._tableContainerHeight =
       this.service.calculateTableContainerHeight(val);
@@ -163,10 +163,7 @@ export class TerminatableComponent implements OnInit {
     if (!this.selectedRow) {
       return false;
     }
-    return (
-      row[this.uniqueField] ===
-      this.selectedRow[this.uniqueField]
-    );
+    return row[this.uniqueField] === this.selectedRow[this.uniqueField];
   };
 
   //#region STYLE
