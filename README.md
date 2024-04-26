@@ -6,7 +6,7 @@ Your Angular version should be 17+
 
 Terminatable is being developed who use HTML tables in their app and customize that in Angular 17 and above.
 
-### Example
+## DEMO
 
 How can I use in my app? [Visit](https://terminatable.onrender.com)
 
