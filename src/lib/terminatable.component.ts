@@ -60,7 +60,7 @@ export class TerminatableComponent implements AfterViewInit {
   @Input() uniqueField: string;
 
   _columns: IColumn[] = [];
-  @Input() set columns(value: any[]) {
+  @Input() set columns(value: IColumn[]) {
     this._columns = value;
   }
 
@@ -74,7 +74,6 @@ export class TerminatableComponent implements AfterViewInit {
 
   @Output() onChange: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() onRowSelect: EventEmitter<any> = new EventEmitter<any>();
-
   @Output() onColumnDrop: EventEmitter<IDragAngDrop> =
     new EventEmitter<IDragAngDrop>();
   @Output() onRowDrop: EventEmitter<IDragAngDrop> =
@@ -82,13 +81,13 @@ export class TerminatableComponent implements AfterViewInit {
 
   selectedRow: any;
 
-  trStyle: IRowStyle = {};
-  thStyle: IColumnStyle = {};
-  tdStyle: IColumnStyle = {};
-
   paginationEvent: IPagination = {};
 
   orderTypes = ORDER_TYPES;
+
+  // DRAG - DROP
+  columnSourceIndex: number = -1;
+  rowSourceIndex: number = -1;
 
   constructor(private readonly service: TerminatableService) {}
 
@@ -166,27 +165,6 @@ export class TerminatableComponent implements AfterViewInit {
     return row[this.uniqueField] === this.selectedRow[this.uniqueField];
   };
 
-  //#region STYLE
-
-  // textColor(obj: { index?: number; row?: any; }): string {
-  //   const { index, row } = obj;
-  //   const isSelected: boolean = this.isSelectedRow(row);
-  //   return this.service.color(this._config, index, isSelected).text;
-  // }
-
-  // hoverHighlightInput = (row: any, index: number) => {
-  //   const selected: boolean = this.isSelectedRow(row);
-  //   return { config: this._config, index, selected };
-  // };
-
-  // backgroundColor = (obj: { index?: number; row?: any; }) => {
-  //   const { index, row } = obj;
-  //   const isSelected: boolean = this.isSelectedRow(row);
-  //   return this.service.color(this._config, index, isSelected).background;
-  // };
-
-  //#endregion
-
   //#region COLUMN - DRAG AND DROP
 
   setMoveClass = (element: ElementRef) => {
@@ -205,8 +183,6 @@ export class TerminatableComponent implements AfterViewInit {
       direction === "row" ? this.rowDragboxes : this.columnDragboxes;
     return drogboxes.find((_: ElementRef, i) => i === index);
   };
-
-  columnSourceIndex: number = -1;
 
   columnDragStart(index: number) {
     this.columnSourceIndex = index;
@@ -269,8 +245,6 @@ export class TerminatableComponent implements AfterViewInit {
   //#endregion
 
   //#region ROW - DRAG AND DROP
-
-  rowSourceIndex: number = -1;
 
   rowDragStart(index: number) {
     this.rowSourceIndex = index;
