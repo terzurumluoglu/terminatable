@@ -12,7 +12,6 @@ html, body {
 #terminatable {
     position: relative;
     height: 100%;
-    // padding: 1rem;
 
     .table-caption,
     .table-footer {
@@ -22,15 +21,14 @@ html, body {
     }
 
     .table-caption {
-        border-bottom: 1px solid #d2d2d2;
+        border-bottom: 1px solid #F0F0F0;
     }
 
     .table-footer {
-        border-top: 1px solid #d2d2d2;
+        border-top: 1px solid #F0F0F0;
     }
 
     .table-container {
-        // height: calc(100% - 100px);
         position: relative;
         overflow: auto;
 
@@ -48,7 +46,6 @@ html, body {
                 opacity: 0.4;
             }
 
-            // padding-right: 0.5rem;
             thead {
                 position: sticky;
                 border-spacing: 0;
@@ -81,7 +78,7 @@ html, body {
                 &.strip {
                     tr {
                         &:nth-child(odd) {
-                            background-color: #E4E4E4;
+                            background-color: #F0F0F0;
                         }
                     }
                 }
@@ -103,10 +100,16 @@ html, body {
                         background: inherit;
                         padding: 1rem 1rem;
                         height: 52px;
+                        border-top: 1px solid #F0F0F0;
                         &.freeze {
                             position: sticky;
                             left: 0;
                             z-index: 1;
+                        }
+                    }
+                    &:last-child {
+                        td {
+                            border-bottom: 1px solid #F0F0F0;
                         }
                     }
                 }
